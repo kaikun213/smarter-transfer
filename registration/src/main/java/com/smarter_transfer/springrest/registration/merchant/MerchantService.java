@@ -50,10 +50,11 @@ public interface MerchantService {
      */
 	public Merchant getMerchant(long merchantId);
 	/** Answers a list with all merchants in the system
-	 * 
+	 * @param start defines the start of the result list
+	 * @param limit defines how many items should be returned
 	 * @return List of all merchants in the system
 	 */
-	public List<Merchant> getMerchants();
+	public List<Merchant> getMerchants(int start, int limit);
 	/** Returns the total amount of merchants in the system
 	 * 
 	 * @return total amount of merchants in the system

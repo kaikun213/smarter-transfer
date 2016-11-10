@@ -78,9 +78,11 @@ public class MerchantServiceImpl implements MerchantService{
 
     @SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
-	public List<Merchant> getMerchants() {
+	public List<Merchant> getMerchants(int start, int limit) {
 		return sessionFactory.getCurrentSession()
         .createCriteria(Merchant.class)
+        .setFirstResult(start)
+        .setMaxResults(limit)
         .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
         .list();
 	}
@@ -95,7 +97,7 @@ public class MerchantServiceImpl implements MerchantService{
 		List<Long> eqKeshId =  sessionFactory.getCurrentSession()
 						            .createCriteria(Merchant.class)
 						            .add(Restrictions.eq("keshId", keshId))
-						            .setProjection(Projections.distinct(Projections.property("merchantId")))
+						            .setProjection(Projections.distinct(Projections.property("merchantId")))			
 						            .setResultTransformer(Criteria.PROJECTION)
 						            .list();
 		if (!eqKeshId.isEmpty()){
