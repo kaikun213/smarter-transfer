@@ -1,1 +1,1 @@
-smarterTransfer
+smartTransfer-backend
