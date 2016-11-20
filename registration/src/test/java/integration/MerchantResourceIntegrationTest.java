@@ -150,7 +150,7 @@ public class MerchantResourceIntegrationTest {
 		response = merchantResource.getMerchant(-1);
 		assertEquals(response.getStatus(), Status.ERROR);
 		/* not existing merchant */
-		response = merchantResource.getMerchant(merchantResource.getMerchants().getTotal()+1);
+		response = merchantResource.getMerchant(merchantResource.countMerchants()+1);
 		assertEquals(response.getStatus(), Status.ERROR);
 	}
 	

@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,12 +47,17 @@ public class MerchantResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, produces = "application/json")
-	public ListApiResponse getMerchants(@RequestParam(value = "page", required = false, defaultValue=1) int page,
-										@RequestParam(value = "limit", required = false, defaultValue=10) int limit){
+	public ListApiResponse getMerchants(@RequestParam(value = "page", required = false, defaultValue="1") int page,
+										@RequestParam(value = "limit", required = false, defaultValue="10") int limit){
 			List<Object> merchants = merchantService.getMerchants((page-1)*limit, limit).stream().map(MerchantDTO::new).collect(Collectors.toList());
 			// calculate how many pages there are in total with object limit per page
-			long total = (long)((merchants.size()/limit) + ((merchants.size()%limit)*1));
-			return new ListApiResponse(Status.OK,merchants, null, page,"http://localhost:8080/merchants?page="+(page+1), total);
+			// amount devided by limit and possibly +1 if there is a rest
+			long total = (long)((merchantService.count()/limit));
+			if ((merchantService.count()%limit) > 0) total++;
+			
+			String nextPage = "none";
+			if (page < total) nextPage = "http://localhost:8080/api/v1/merchants?page="+(page+1)+"&limit="+limit;
+			return new ListApiResponse(Status.OK,merchants, null, page, nextPage, total);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, consumes = "application/json")
