@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.smarter_transfer.springrest.registration.user.model.User;
 
+import common.app.error.DuplicateRecordException;
+
 /**
  * This Service provides the necessary functionality to manage users
  * @author kaikun
@@ -64,8 +66,8 @@ public interface UserService {
 	 * 
 	 * @param userId userId of the user with the keshId
 	 * @param keshId KeshId of the user to insert/update
-	 * @throws Exception if there is already a duplicate keshId which does not belong to the same userId
+	 * @throws DuplicateRecordException if there is already a duplicate keshId which does not belong to the same userId
 	 */
-    public void checkUniqueKeshId(long userId, long keshId) throws Exception;
+    public void checkUniqueKeshId(long userId, long keshId) throws DuplicateRecordException;
 
 }

@@ -1,6 +1,8 @@
-package integration;
+package integrationTests;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+
+import java.util.Date;
 
 import org.hibernate.SessionFactory;
 import org.junit.After;
@@ -60,6 +62,7 @@ public class UserResourceIntegrationTest {
 
 		ApiResponse response = userResource.addUser(new UserDTO(tester1));
 		tester1.setUserId(((UserDTO)response.getData()).getUserId());
+		sessionFactory.getCurrentSession().refresh(tester1);
 		response = userResource.addUser(new UserDTO(tester2));
 		tester2.setUserId(((UserDTO)response.getData()).getUserId());
 	}
@@ -84,7 +87,6 @@ public class UserResourceIntegrationTest {
 	         LOGGER.info("Teardown deleted user: {}", user.getName());
 	      }
 	}
-	
 	
 	@Test
 	public void testGetUser(){
@@ -158,8 +160,17 @@ public class UserResourceIntegrationTest {
 		response = userResource.getUser(userResource.getUsers().getTotal()+1);
 		assertEquals(response.getStatus(), Status.ERROR);
 	}
-	
-	
-	
+	/*
+	@Test
+	public void testTimestampUserUpdate(){
+		// before update
+		Date before = tester1.getUpdated();
+		// after
+		userResource.updateUser(new UserDTO(tester1), tester1.getUserId());
+		sessionFactory.getCurrentSession().refresh(tester1);
+		Date after = ((User) sessionFactory.getCurrentSession().get(User.class, tester1.getUserId())).getUpdated();
+		assertTrue(before.before(after));
+	}
+	*/
 
 }

@@ -1,6 +1,6 @@
 package com.smarter_transfer.springrest.registration.merchant.model;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,11 +15,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import common.app.model.AbstractTimestampEntity;
 import common.app.model.Address;
 
 @Entity
 @Table(name="Merchant")
-public class Merchant {
+public class Merchant extends AbstractTimestampEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -53,12 +54,9 @@ public class Merchant {
 	private String ticketURL;
 	@Column(name="isDeleted")
 	private boolean isDeleted;
-	@Column(name="created_at")
-	private Date createdAt;
-	@Column(name="updated_at")
-	private Date updatedAt;
 	
-	public Merchant(){		
+	public Merchant(){	
+		if (themes == null) themes = new ArrayList<Theme>();
 	}
 	
 	public long getMerchantId() {
@@ -148,19 +146,6 @@ public class Merchant {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
-	}
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 
 	

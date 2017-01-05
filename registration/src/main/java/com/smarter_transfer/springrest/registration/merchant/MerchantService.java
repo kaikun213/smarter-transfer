@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.smarter_transfer.springrest.registration.merchant.model.Merchant;
 
+import common.app.error.DuplicateRecordException;
+
 /**
  * This Service provides the necessary functionality to manage merchants
  * @author kaikun
@@ -64,9 +66,9 @@ public interface MerchantService {
 	 * 
 	 * @param merchantId merchantId of the merchant with the keshId
 	 * @param keshId KeshId of the merchant to insert/update
-	 * @throws Exception if there is already a duplicate keshId which does not belong to the same merchantId
+	 * @throws DuplicateRecordException if there is already a duplicate keshId which does not belong to the same merchantId
 	 */
-    public void checkUniqueKeshId(long merchantId, long keshId) throws Exception;
+    public void checkUniqueKeshId(long merchantId, long keshId) throws DuplicateRecordException;
 
 
 }

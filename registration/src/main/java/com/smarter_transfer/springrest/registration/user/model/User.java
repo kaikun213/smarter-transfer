@@ -1,7 +1,5 @@
 package com.smarter_transfer.springrest.registration.user.model;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -14,11 +12,12 @@ import javax.persistence.Table;
 
 import com.smarter_transfer.springrest.registration.merchant.model.Theme;
 
+import common.app.model.AbstractTimestampEntity;
 import common.app.model.Location;
 
 @Entity
 @Table(name="User")
-public class User {
+public class User extends AbstractTimestampEntity{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="userId", unique=true, nullable=false)
@@ -36,10 +35,6 @@ public class User {
 	private Location deviceLocation;
 	@Column(name="isDeleted", nullable = false)
 	private boolean isDeleted;
-    @Column(name = "created_at", nullable = false)
-	private Date createdAt;
-    @Column(name = "updated_at", nullable = false)
-	private Date updatedAt;
 	
 	public User(){}
 	
@@ -86,12 +81,6 @@ public class User {
 	public boolean getIsDeleted(){
 		return isDeleted;
 	}
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
@@ -103,12 +92,6 @@ public class User {
 	}
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
-	}
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 
 

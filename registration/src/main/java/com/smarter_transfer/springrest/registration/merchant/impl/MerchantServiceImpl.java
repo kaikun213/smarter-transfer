@@ -43,6 +43,7 @@ public class MerchantServiceImpl implements MerchantService{
 
 	
 	public void updateMerchant(Merchant merchant) {
+		merchant.setUpdated(null);
 		sessionFactory.getCurrentSession().update(merchant);
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("Updated merchant: {}", merchant.getCompanyName());
@@ -91,7 +92,7 @@ public class MerchantServiceImpl implements MerchantService{
     	return (long) sessionFactory.getCurrentSession().createCriteria(Merchant.class).setProjection(Projections.rowCount()).uniqueResult();
     }
     
-    public void checkUniqueKeshId(long merchantId, long keshId) throws Exception{
+    public void checkUniqueKeshId(long merchantId, long keshId) throws DuplicateRecordException{
     	/* Test if merchant with equal keshId already exists */
 		@SuppressWarnings("unchecked")
 		List<Long> eqKeshId =  sessionFactory.getCurrentSession()
@@ -103,7 +104,7 @@ public class MerchantServiceImpl implements MerchantService{
 		if (!eqKeshId.isEmpty()){
 			// check if the existing merchant is the same as the updated one
 			if (eqKeshId.get(0) != merchantId)
-	    	throw new DuplicateRecordException("The merchant can not get updated. Duplicate keshId error.");
+	    	throw new DuplicateRecordException("The merchant can not get updated/added. Duplicate keshId error.");
 		}
     }
 

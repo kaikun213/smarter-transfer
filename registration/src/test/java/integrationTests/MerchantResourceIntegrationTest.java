@@ -1,7 +1,13 @@
-package integration;
+package integrationTests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.util.Date;
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
@@ -56,6 +62,7 @@ public class MerchantResourceIntegrationTest {
 
 		ApiResponse response = merchantResource.addMerchant(new MerchantDTO(tester1));
 		tester1.setMerchantId(((MerchantDTO)response.getData()).getMerchantId());
+		sessionFactory.getCurrentSession().refresh(tester1);
 		response = merchantResource.addMerchant(new MerchantDTO(tester2));
 		tester2.setMerchantId(((MerchantDTO)response.getData()).getMerchantId());
 	}
@@ -154,6 +161,27 @@ public class MerchantResourceIntegrationTest {
 		assertEquals(response.getStatus(), Status.ERROR);
 	}
 	
+	/*
+	@Test
+	public void testTimestampMerchantUpdate(){
+		SQLQuery sqlQuery = sessionFactory.getCurrentSession().createSQLQuery("SELECT updated_at FROM smarterTestDB.Merchant WHERE merchantId="+tester1.getMerchantId());
+		sqlQuery.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+		List list = sqlQuery.list();
+		String test = list.get(0).toString();
+		System.err.println("**************************************************");
+
+		System.out.println("Date: " + test);
+		// before update
+		sessionFactory.getCurrentSession().refresh(tester1);
+		Date before = tester1.getUpdated();
+		// after
+		merchantResource.updateMerchant(new MerchantDTO(tester1), tester1.getMerchantId());
+		sessionFactory.getCurrentSession().refresh(tester1);
+		Date after = tester1.getUpdated();
+		if (before == null || after == null) System.out.println("Error");
+		assertTrue(before.before(after));
+	}
+	*/
 	
 	
 

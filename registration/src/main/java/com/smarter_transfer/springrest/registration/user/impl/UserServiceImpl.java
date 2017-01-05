@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService{
 
 	
 	public void updateUser(User user) {
+		user.setUpdated(null);
 	    sessionFactory.getCurrentSession().update(user);
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("Updated user: {}", user.getName());
@@ -87,7 +88,7 @@ public class UserServiceImpl implements UserService{
     	return (long) sessionFactory.getCurrentSession().createCriteria(User.class).setProjection(Projections.rowCount()).uniqueResult();
     }
 	
-    public void checkUniqueKeshId(long userId, long keshId) throws Exception{
+    public void checkUniqueKeshId(long userId, long keshId) throws DuplicateRecordException{
     	/* Test if user with equal keshId already exists */
 		@SuppressWarnings("unchecked")
 		List<Long> eqKeshId =  sessionFactory.getCurrentSession()
@@ -97,7 +98,7 @@ public class UserServiceImpl implements UserService{
 						        .setResultTransformer(Criteria.PROJECTION)
 						        .list();
 		if (!eqKeshId.isEmpty() && eqKeshId.get(0) != userId){
-		throw new DuplicateRecordException("The user can not get updated. Duplicate keshId error.");
+		throw new DuplicateRecordException("The user can not get updated/added. Duplicate keshId error.");
 		}
     }
 

@@ -1,5 +1,6 @@
 package com.smarter_transfer.springrest.registration.merchant.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.smarter_transfer.springrest.registration.merchant.model.Merchant;
@@ -28,7 +29,9 @@ public class MerchantDTO {
 	private String shopURL;
 	private String ticketURL;
 	
-	public MerchantDTO(){}
+	public MerchantDTO(){
+		themeIds = new ArrayList<Long>();
+	}
 	
 	public MerchantDTO(Merchant merchant){
 		this.merchantId = merchant.getMerchantId();
@@ -52,6 +55,7 @@ public class MerchantDTO {
 		this.ustId = merchant.getUstId();
 		this.logoId = merchant.getLogoId();
 		if (merchant.getThemes() != null){
+			themeIds = new ArrayList<Long>();
 			for (Theme t : merchant.getThemes()) themeIds.add(t.getThemeId());
 		}
 		this.websiteURL = merchant.getWebsiteURL();

@@ -28,7 +28,9 @@ public class UserDTO {
 			this.lon = user.getLocation().getLon();
 			this.lat = user.getLocation().getLat();
 		}
-		this.themeId = user.getTheme().getThemeId();
+		if (user.getTheme() != null){
+			this.themeId = user.getTheme().getThemeId();
+		}
 	}
 	
 	public long getUserId(){
