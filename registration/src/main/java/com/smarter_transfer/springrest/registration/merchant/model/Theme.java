@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="Theme")
+@Table(name="THEME")
 public class Theme {
 	
 	@Id

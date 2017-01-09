@@ -35,16 +35,15 @@ public class UserServiceImpl implements UserService{
 	public void addUser(User user) {
 	    sessionFactory.getCurrentSession().save(user);
         if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("Added new user: {}", user.getName());
+            LOGGER.info("Added new user: {}", user.toString());
         }
 	}
 
 	
 	public void updateUser(User user) {
-		user.setUpdated(null);
 	    sessionFactory.getCurrentSession().update(user);
         if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("Updated user: {}", user.getName());
+            LOGGER.info("Updated user: {}", user.toString());
         }
 	}
 

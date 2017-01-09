@@ -23,6 +23,7 @@
             <list>
                 <value>com.smarter_transfer.springrest.registration.user.model</value>
                 <value>com.smarter_transfer.springrest.registration.merchant.model</value>
+                <value>com.smarter_transfer.springrest.registration.item.model</value>
                 <value>common.app.model</value>
             </list>
         </property>

@@ -69,12 +69,12 @@ public class MerchantResourceIntegrationTest {
 	
 	@After
 	public void teardown(){
-		deleteMerchant(tester1.getMerchantId());
-		deleteMerchant(tester2.getMerchantId());
+		//deleteMerchantPhysically(tester1.getMerchantId());
+		//deleteMerchantPhysically(tester2.getMerchantId());
 	}
 	
-	/* private delete method for test purpose - no soft delete => cascade */
-	private void deleteMerchant(long merchantId) {
+	/* Physically deletion of merchant for test purpose - no soft delete => cascade */
+	private void deleteMerchantPhysically(long merchantId) {
 		  if (merchantId <= 0) {
 			  throw new IllegalArgumentException("The merchantId must be greater than zero");
 		  }
@@ -84,10 +84,10 @@ public class MerchantResourceIntegrationTest {
 	      }
 	      sessionFactory.getCurrentSession().delete(merchant);
 	      if (LOGGER.isInfoEnabled()) {
-	         LOGGER.info("Teardown deleted merchant: {}", merchant.getCompanyName());
+	         LOGGER.info("Teardown deleted merchant: {}", merchant.toString());
 	      }
 	}
-	
+		
 	
 	@Test
 	public void testGetMerchant(){
@@ -116,7 +116,7 @@ public class MerchantResourceIntegrationTest {
 		assertEquals(response.getStatus(), Status.OK);
 		assertEquals(((MerchantDTO)response.getData()).getKeshId(), tester3.getKeshId());
 		/* teardown - delete merchant again */
-		deleteMerchant(tester3.getMerchantId());
+		//deleteMerchantPhysically(tester3.getMerchantId());
 
 		/* merchant already exists error (keshId) */
 		response = merchantResource.addMerchant(new MerchantDTO(tester1));
@@ -143,7 +143,7 @@ public class MerchantResourceIntegrationTest {
 				
 		/* Merchant does not exist */
 		response = merchantResource.updateMerchant(new MerchantDTO(tester1), merchantResource.countMerchants()+3);
-		assertEquals(response.getStatus(), Status.ERROR);
+		assertEquals(Status.ERROR,response.getStatus());
 	}
 	
 	@Test

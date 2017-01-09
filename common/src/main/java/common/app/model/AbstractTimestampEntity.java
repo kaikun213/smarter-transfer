@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 @MappedSuperclass
 public abstract class AbstractTimestampEntity {
@@ -15,16 +16,10 @@ public abstract class AbstractTimestampEntity {
     private Date created;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at", nullable = false)
+    @Version
+    @Column(name = "updated_at", nullable = false, updatable=false)
     private Date updated;
 
-    protected void onCreate() {
-    updated = created = new Date();
-    }
-
-    protected void onUpdate() {
-    updated = new Date();
-    }
 
 	public Date getCreated() {
 		return created;

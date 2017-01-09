@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.31, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
 --
 -- Host: localhost    Database: smarterTransferDB
 -- ------------------------------------------------------
--- Server version	5.6.31-0ubuntu0.15.10.1
+-- Server version	5.7.16-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -32,7 +32,7 @@ CREATE TABLE `Address` (
   `addressLine2` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`addressId`),
   UNIQUE KEY `addressId_UNIQUE` (`addressId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,6 +51,49 @@ CREATE TABLE `Contact` (
   UNIQUE KEY `merchantId_UNIQUE` (`merchantId`),
   KEY `fk_Contact_Merchant_idx` (`merchantId`),
   CONSTRAINT `fk_Contact_Merchant` FOREIGN KEY (`merchantId`) REFERENCES `Merchant` (`merchantId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `Item`
+--
+
+DROP TABLE IF EXISTS `Item`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Item` (
+  `itemId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `merchantId` bigint(20) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `description` varchar(200) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`itemId`,`merchantId`),
+  KEY `fk_Item_1_idx` (`merchantId`),
+  CONSTRAINT `fk_Item_1` FOREIGN KEY (`merchantId`) REFERENCES `Merchant` (`merchantId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `Item_History`
+--
+
+DROP TABLE IF EXISTS `Item_History`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Item_History` (
+  `revisionNumber` bigint(20) NOT NULL AUTO_INCREMENT,
+  `itemId` bigint(20) NOT NULL,
+  `merchantId` bigint(20) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `description` varchar(200) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`revisionNumber`,`itemId`,`merchantId`),
+  KEY `fk_Item_History_1_idx` (`merchantId`),
+  CONSTRAINT `fk_Item_History_1` FOREIGN KEY (`merchantId`) REFERENCES `Merchant` (`merchantId`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -74,14 +117,14 @@ CREATE TABLE `Merchant` (
   `shopURL` varchar(45) DEFAULT NULL,
   `ticketURL` varchar(45) DEFAULT NULL,
   `isDeleted` bit(1) NOT NULL DEFAULT b'0',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`merchantId`),
   UNIQUE KEY `merchantId_UNIQUE` (`merchantId`),
   UNIQUE KEY `keshID_UNIQUE` (`keshID`),
   KEY `fk_Merchant_Address_idx` (`addressId`),
   CONSTRAINT `fk_Merchant_Address` FOREIGN KEY (`addressId`) REFERENCES `Address` (`addressId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,14 +158,14 @@ CREATE TABLE `User` (
   `latitude` double DEFAULT NULL,
   `keshId` bigint(20) NOT NULL,
   `isDeleted` bit(1) NOT NULL DEFAULT b'0',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `keshId_UNIQUE` (`userId`),
   UNIQUE KEY `userId_UNIQUE` (`keshId`),
   KEY `FK285FEB3E23B8F8` (`themeId`),
   CONSTRAINT `user_themeId` FOREIGN KEY (`themeId`) REFERENCES `Theme` (`themeId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -134,4 +177,4 @@ CREATE TABLE `User` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-10 12:12:13
+-- Dump completed on 2017-01-08 13:47:14

@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Contact")
+@Table(name="CONTACT")
 public class ContactPerson implements Serializable{
 
 	/**

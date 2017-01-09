@@ -16,7 +16,7 @@ import common.app.model.AbstractTimestampEntity;
 import common.app.model.Location;
 
 @Entity
-@Table(name="User")
+@Table(name="USER")
 public class User extends AbstractTimestampEntity{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -93,6 +93,36 @@ public class User extends AbstractTimestampEntity{
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (userId ^ (userId >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof User))
+			return false;
+		User other = (User) obj;
+		if (userId != other.userId)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", name=" + name + "]";
+	}
+	
+	
+	
 
 
 }

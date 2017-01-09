@@ -2,8 +2,10 @@ package integrationTests;
 
 import static org.junit.Assert.*;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
+import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
@@ -84,7 +86,7 @@ public class UserResourceIntegrationTest {
 	      }
 	      sessionFactory.getCurrentSession().delete(user);
 	      if (LOGGER.isInfoEnabled()) {
-	         LOGGER.info("Teardown deleted user: {}", user.getName());
+	         LOGGER.info("Teardown deleted user: {}", user.toString());
 	      }
 	}
 	
@@ -157,16 +159,20 @@ public class UserResourceIntegrationTest {
 		response = userResource.getUser(-1);
 		assertEquals(response.getStatus(), Status.ERROR);
 		/* not existing user */
-		response = userResource.getUser(userResource.getUsers().getTotal()+1);
+		response = userResource.getUser(userResource.countUsers()+1);
 		assertEquals(response.getStatus(), Status.ERROR);
 	}
+	
 	/*
 	@Test
 	public void testTimestampUserUpdate(){
 		// before update
+		SQLQuery sqlQuery = sessionFactory.getCurrentSession().createSQLQuery("COMMIT;");
+		sessionFactory.getCurrentSession().refresh(tester1);
 		Date before = tester1.getUpdated();
 		// after
 		userResource.updateUser(new UserDTO(tester1), tester1.getUserId());
+		sqlQuery = sessionFactory.getCurrentSession().createSQLQuery("COMMIT;");
 		sessionFactory.getCurrentSession().refresh(tester1);
 		Date after = ((User) sessionFactory.getCurrentSession().get(User.class, tester1.getUserId())).getUpdated();
 		assertTrue(before.before(after));

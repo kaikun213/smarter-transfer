@@ -37,7 +37,7 @@ public class MerchantServiceImpl implements MerchantService{
 	public void addMerchant(Merchant merchant) {
         sessionFactory.getCurrentSession().save(merchant);
         if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("Added new merchant: {}", merchant.getCompanyName());
+            LOGGER.info("Added new merchant: {}", merchant.toString());
         }
 	}
 
@@ -46,7 +46,7 @@ public class MerchantServiceImpl implements MerchantService{
 		merchant.setUpdated(null);
 		sessionFactory.getCurrentSession().update(merchant);
         if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("Updated merchant: {}", merchant.getCompanyName());
+            LOGGER.info("Updated merchant: {}", merchant.toString());
         }
 	}
 

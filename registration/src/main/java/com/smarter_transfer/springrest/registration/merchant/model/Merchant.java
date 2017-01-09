@@ -19,7 +19,7 @@ import common.app.model.AbstractTimestampEntity;
 import common.app.model.Address;
 
 @Entity
-@Table(name="Merchant")
+@Table(name="MERCHANT")
 public class Merchant extends AbstractTimestampEntity {
 	
 	@Id
@@ -148,6 +148,33 @@ public class Merchant extends AbstractTimestampEntity {
 		this.address = address;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (merchantId ^ (merchantId >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Merchant))
+			return false;
+		Merchant other = (Merchant) obj;
+		if (merchantId != other.merchantId)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Merchant [merchantId=" + merchantId + ", companyName=" + companyName + "]";
+	}
+	
 	
 	
 }
