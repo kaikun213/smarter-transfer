@@ -3,7 +3,6 @@ package com.smarter_transfer.springrest.registration.item;
 import java.util.List;
 
 import com.smarter_transfer.springrest.registration.item.model.Item;
-import com.smarter_transfer.springrest.registration.item.model.ItemPK;
 
 /**
  * This Service provides the necessary functionality to manage items
@@ -29,26 +28,25 @@ public interface ItemService {
 	/**
      * Deletes the item with the given identifier from the System.
      *
-     * @param itemPK : itemPK of the item
-     *
-     * @return the item with the given {@code itemPK}
+     * @param merchantId : id of the merchant
+     * @param itemId : id of the item from the merchant
      *
      * @throws common.app.error.RecordNotFoundException if the item does not exist
      * @throws IllegalArgumentException if the itemId is invalid
      */
-	public void deleteItem(ItemPK itemPK);
+	public void deleteItem(long merchantId, long itemId);
 	
 	/**
      * Answers the item with the given identifier.
      *
-     * @param ItemPK : itemPK of the item
-     *
-     * @return the item with the given {@code itemPK}
-     *
+     * @param merchantId : id of the merchant
+     * @param itemId : id of the item from the merchant
+     * @return the item with the given {@code merchantId} {@code itemId}
+     * 
      * @throws common.app.error.RecordNotFoundException if the item does not exist
-     * @throws IllegalArgumentException if the itemId is invalid
+     * @throws IllegalArgumentException if the merchantId or itemId is invalid
      */
-	public Item getItem(ItemPK itemPK);
+	public Item getItem(long merchantId, long itemId);
 	
 	/** Answers a list with all items from the merchant in the system
 	 * @param merchantId identifier of the merchant who created the items

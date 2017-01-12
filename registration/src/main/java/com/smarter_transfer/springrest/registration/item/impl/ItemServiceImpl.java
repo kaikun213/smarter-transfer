@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.smarter_transfer.springrest.registration.item.ItemService;
 import com.smarter_transfer.springrest.registration.item.model.Item;
-import com.smarter_transfer.springrest.registration.item.model.ItemPK;
 /**
  * {@link ItemService} implementation.
  * @author kaikun
@@ -54,18 +53,6 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
-	public void deleteItem(ItemPK itemPK) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Item getItem(ItemPK itemPK) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Item> getItems(long merchantId, int start, int limit) {
 		// TODO Auto-generated method stub
 		return null;
@@ -75,6 +62,18 @@ public class ItemServiceImpl implements ItemService{
 	public long count(long merchantId) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void deleteItem(long merchantId, long itemId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Item getItem(long merchantId, long itemId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

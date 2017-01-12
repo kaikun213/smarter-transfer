@@ -24,12 +24,10 @@ public class ItemPK implements Serializable{
 	
 	public ItemPK(){}
 	
-	public ItemPK(Merchant merchant, long itemId){
+	public ItemPK(Merchant merchant){
 		this.merchant = merchant;
-		this.itemId = itemId;
 	}
-
-
+	
 	public long getItemId() {
 		return itemId;
 	}

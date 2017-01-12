@@ -1,9 +1,11 @@
 package com.smarter_transfer.springrest.registration.item.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smarter_transfer.springrest.registration.item.ItemService;
@@ -36,6 +38,18 @@ public class ItemResource {
 			Item newItem = createItem(itemDTO);
 			itemService.addItem(newItem);
 			return new ApiResponse(Status.OK,new ItemDTO(newItem), null);
+		}
+		catch (Exception e){
+            return new ApiResponse(Status.ERROR, null, new ApiError(400, e.getMessage()));
+		}
+	}
+	
+
+	@RequestMapping(value="/{merchantId}", method=RequestMethod.GET, produces = "application/json")
+	public ApiResponse getItem(@PathVariable long merchantId,@RequestParam(value = "itemId", required = true) long itemId){
+		try {
+			Item item = itemService.getItem(merchantId, itemId);
+			return new ApiResponse(Status.OK, new ItemDTO(item), null);
 		}
 		catch (Exception e){
             return new ApiResponse(Status.ERROR, null, new ApiError(400, e.getMessage()));

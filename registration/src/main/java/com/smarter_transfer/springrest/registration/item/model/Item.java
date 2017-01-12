@@ -19,6 +19,16 @@ public class Item extends AbstractTimestampEntity{
 	@Column(name="price")
 	private double price;
 	
+	public Item(){}
+	
+	public Item(ItemPK itemPK, String name, String description, double price) {
+		super();
+		this.itemPK = itemPK;
+		this.name = name;
+		this.description = description;
+		this.price = price;
+	}
+	
 	public ItemPK getItemPK() {
 		return itemPK;
 	}

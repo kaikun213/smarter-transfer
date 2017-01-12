@@ -59,6 +59,11 @@ public class Merchant extends AbstractTimestampEntity {
 		if (themes == null) themes = new ArrayList<Theme>();
 	}
 	
+	public Merchant(long keshId){
+		if (themes == null) themes = new ArrayList<Theme>();
+		this.keshId = keshId;
+	}
+	
 	public long getMerchantId() {
 		return merchantId;
 	}

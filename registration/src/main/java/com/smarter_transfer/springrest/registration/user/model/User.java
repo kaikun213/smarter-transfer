@@ -32,11 +32,16 @@ public class User extends AbstractTimestampEntity{
 	@Column(name="deviceId", length=45, nullable=false)
 	private String deviceId;
 	@Embedded
-	private Location deviceLocation;
+	private Location location;
 	@Column(name="isDeleted", nullable = false)
 	private boolean isDeleted;
 	
-	public User(){}
+	public User(){
+	}
+	
+	public User(long keshId){
+		this.keshId = keshId;
+	}
 	
 	public long getUserId(){
 		return userId;
@@ -54,13 +59,13 @@ public class User extends AbstractTimestampEntity{
 		this.name = name;
 	}
 	public Location getLocation() {
-		return deviceLocation;
+		return location;
 	}
 	public void setLocation(Location location) {
-		this.deviceLocation = location;
+		this.location = location;
 	}
 	public void setLocation(double lon, double lat){
-		this.deviceLocation = new Location(lon,lat);
+		this.location = new Location(lon,lat);
 	}
 	public Theme getTheme() {
 		return theme;
@@ -83,12 +88,6 @@ public class User extends AbstractTimestampEntity{
 	}
 	public void setUserId(long userId) {
 		this.userId = userId;
-	}
-	public Location getDeviceLocation() {
-		return deviceLocation;
-	}
-	public void setDeviceLocation(Location deviceLocation) {
-		this.deviceLocation = deviceLocation;
 	}
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
