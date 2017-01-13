@@ -18,7 +18,7 @@ public class MenuPK implements Serializable {
     @JoinColumn(name="merchantId", nullable=false)
 	private Merchant merchant;
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="itemId", nullable=false)
+	@Column(name="menuId", nullable=false)
 	private long menuId;
 	
 	public MenuPK(){}

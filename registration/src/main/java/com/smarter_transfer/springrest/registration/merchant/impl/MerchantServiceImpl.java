@@ -43,7 +43,6 @@ public class MerchantServiceImpl implements MerchantService{
 
 	
 	public void updateMerchant(Merchant merchant) {
-		merchant.setUpdated(null);
 		sessionFactory.getCurrentSession().update(merchant);
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("Updated merchant: {}", merchant.toString());

@@ -13,8 +13,8 @@ public class ItemDTO {
 	public ItemDTO(){}
 	
 	public ItemDTO(Item item){
-		this.merchantId = item.getItemPK().getMerchant().getMerchantId();
-		this.itemId = item.getItemPK().getItemId();
+		this.merchantId = item.getMerchant().getMerchantId();
+		this.itemId = item.getItemId();
 		this.name = item.getName();
 		this.description = item.getDescription();
 		this.price = item.getPrice();

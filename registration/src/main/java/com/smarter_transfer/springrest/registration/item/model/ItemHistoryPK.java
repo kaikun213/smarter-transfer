@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -20,15 +18,15 @@ public class ItemHistoryPK implements Serializable {
 	private Merchant merchant;
 	@Column(name="itemId", nullable=false)
 	private long itemId;
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="revisionNumber", nullable=false)
 	private long revisionNumber;
 	
 	public ItemHistoryPK(){}
 	
-	public ItemHistoryPK(ItemPK itemPK){
-		this.merchant = itemPK.getMerchant();
-		this.itemId = itemPK.getItemId();
+	public ItemHistoryPK(Merchant merchant, long itemId, long revisionNumber){
+		this.merchant = merchant;
+		this.itemId = itemId;
+		this.revisionNumber = revisionNumber;
 	}
 
 	public Merchant getMerchant() {

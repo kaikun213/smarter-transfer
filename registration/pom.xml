@@ -8,6 +8,14 @@
   <artifactId>rest-backend-spring-registration</artifactId>
   <packaging>war</packaging>
   
+  <properties>
+  	  <java-version>1.8</java-version>
+	  <org.springframework-version>4.3.5.RELEASE</org.springframework-version>
+	  <org.springframework.boot-version>1.4.3.RELEASE</org.springframework.boot-version>
+	  <org.junit-version>4.12</org.junit-version>
+	  <org.mockito-version>1.9.5</org.mockito-version>
+  </properties>
+  
   <dependencies>
   		<!-- Internal modules Dependencies -->
         <dependency>
@@ -19,19 +27,25 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>4.1.6.RELEASE</version>
+            <version>${org.springframework-version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
+	    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-test</artifactId>
+		    <version>${org.springframework.boot-version}</version>
+		    <scope>test</scope>
+		</dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>${org.junit-version}</version>
             <scope>test</scope>
         </dependency>
          <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>1.9.5</version>
+            <version>${org.mockito-version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -49,6 +63,15 @@
                 <configuration>
                     <attachClasses>true</attachClasses>
                 </configuration>
+            </plugin>
+            <plugin>
+            	<groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-compiler-plugin</artifactId>
+		        <version>3.1</version>
+		        <configuration>
+		          <source>1.8</source>
+		          <target>1.8</target>
+		        </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -78,9 +101,5 @@
 			</plugin>
        </plugins>
     </build>
-    
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
     
 </project>

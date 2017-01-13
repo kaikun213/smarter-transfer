@@ -6,9 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.smarter_transfer.springrest.registration.WebApplication;
@@ -20,9 +20,9 @@ import common.app.web.ApiResponse;
 import common.app.web.ApiResponse.Status;
 import common.app.web.config.JsonConfiguration;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {WebApplication.class, JsonConfiguration.class}, locations = "registration-test.xml")
-@WebAppConfiguration
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {WebApplication.class, JsonConfiguration.class})
+@ContextConfiguration("file:src/test/resources/registration-test.xml")
 @Transactional
 public class MerchantResourceIntegrationTest {
 		

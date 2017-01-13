@@ -2,13 +2,15 @@ package integrationTests;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDateTime;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.smarter_transfer.springrest.registration.WebApplication;
@@ -21,11 +23,9 @@ import common.app.web.ApiResponse;
 import common.app.web.ApiResponse.Status;
 import common.app.web.config.JsonConfiguration;
 
-
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {WebApplication.class, JsonConfiguration.class}, locations = "registration-test.xml")
-@WebAppConfiguration
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {WebApplication.class, JsonConfiguration.class})
+@ContextConfiguration("file:src/test/resources/registration-test.xml")
 @Transactional
 public class UserResourceIntegrationTest {
 		
@@ -140,16 +140,14 @@ public class UserResourceIntegrationTest {
 	/*
 	@Test
 	public void testTimestampUserUpdate(){
+		userResource.getUser(tester1.getUserId());
 		// before update
-		SQLQuery sqlQuery = sessionFactory.getCurrentSession().createSQLQuery("COMMIT;");
-		sessionFactory.getCurrentSession().refresh(tester1);
-		Date before = tester1.getUpdated();
+		LocalDateTime before = tester1.getUpdated();
 		// after
 		userResource.updateUser(new UserDTO(tester1), tester1.getUserId());
-		sqlQuery = sessionFactory.getCurrentSession().createSQLQuery("COMMIT;");
-		sessionFactory.getCurrentSession().refresh(tester1);
-		Date after = ((User) sessionFactory.getCurrentSession().get(User.class, tester1.getUserId())).getUpdated();
-		assertTrue(before.before(after));
+		userResource.getUser(tester1.getUserId());
+		LocalDateTime after = tester1.getUpdated();
+		assertTrue(before.isBefore(after));
 	}
 	*/
 

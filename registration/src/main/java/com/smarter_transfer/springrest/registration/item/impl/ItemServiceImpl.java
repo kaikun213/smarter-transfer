@@ -1,5 +1,7 @@
 package com.smarter_transfer.springrest.registration.item.impl;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -13,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.smarter_transfer.springrest.registration.item.ItemService;
 import com.smarter_transfer.springrest.registration.item.model.Item;
+import com.smarter_transfer.springrest.registration.item.model.ItemHistory;
+
+import common.app.error.RecordNotFoundException;
 /**
  * {@link ItemService} implementation.
  * @author kaikun
@@ -29,27 +34,31 @@ public class ItemServiceImpl implements ItemService{
 
 	@Override
 	public void addItem(Item item) {
-		try {
 		sessionFactory.getCurrentSession().save(item);
-    	long itemIndex = (long) sessionFactory.getCurrentSession().createCriteria(Item.class).add(Restrictions.eq("itemPK.merchant.merchantId", item.getItemPK().getMerchant().getMerchantId())).setProjection(Projections.rowCount()).uniqueResult();
-    	long itemId = (long) ((Item)sessionFactory.getCurrentSession().createCriteria(Item.class).add(Restrictions.eq("itemPK.merchant.merchantId", item.getItemPK().getMerchant().getMerchantId())).list().get((int) itemIndex-1)).getItemPK().getItemId();
-    	item.getItemPK().setItemId(itemId);
-    	System.out.println("itemIndex: " + itemIndex);
-    	System.out.println("itemId: " + itemId);
-    	System.out.println("Added new item: {}" +item.getItemPK().toString());
-		}
-    	catch(Exception e){
-        	System.err.println("ERROR CATCHED " + e.getMessage());
-        }
+		ItemHistory itemHistory = new ItemHistory(item, 0);
+		sessionFactory.getCurrentSession().save(itemHistory);
+		
+		System.out.println("Updated_at creation of itemHistory: " +itemHistory.getUpdated());
+		System.out.println("Updated_at creation of item: " +item.getUpdated());
+		
         if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("Added new item: {}", item.getItemPK().toString());
+            LOGGER.info("Added new item: {}", item.toString());
+            LOGGER.info("Added new itemHistory: {}", itemHistory.toString());
         } 
 	}
 
 	@Override
 	public void updateItem(Item item) {
-		// TODO Auto-generated method stub
-		
+		/* retrieve revision number from last updated version, increment and save new version */
+	    long revisionNumber = getRevisionNumber(item.getItemId(), item.getUpdated());
+		sessionFactory.getCurrentSession().update(item);
+		/* retrieve current created_at and updated_at to be synchronized with itemHistory */
+		ItemHistory itemHistory = new ItemHistory(item, revisionNumber+1);
+		sessionFactory.getCurrentSession().update(itemHistory);
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Updated item: {}", item.toString());
+            LOGGER.info("Updated itemHistory: {}", itemHistory.toString());
+        }
 	}
 
 	@Override
@@ -72,8 +81,43 @@ public class ItemServiceImpl implements ItemService{
 
 	@Override
 	public Item getItem(long merchantId, long itemId) {
-		// TODO Auto-generated method stub
-		return null;
+	  if (merchantId <= 0) {
+		  throw new IllegalArgumentException("The merchantId must be greater than zero");
+	  }
+	  else if (itemId <= 0){
+		  throw new IllegalArgumentException("The itemId must be greater than zero");
+	  }
+      Item item = (Item) sessionFactory.getCurrentSession().get(Item.class, itemId);
+      if (item == null) {
+    	  throw new RecordNotFoundException("No item: [merchantId =" + merchantId + " ; itemId = " + itemId + "]");
+      }
+      if (item.getMerchant().getMerchantId() != merchantId){
+		  throw new IllegalArgumentException("The merchantId: " + merchantId + " is not the owner of the item.");
+
+      }
+      return item;
+	}
+
+	private long getRevisionNumber(long itemId, LocalDateTime lastUpdated) {
+		long revisionNumber = (Long) sessionFactory.getCurrentSession().createCriteria(ItemHistory.class)
+				  .add(Restrictions.eq("itemHistoryPK.itemId", itemId))
+				  .add(Restrictions.eq("updated", lastUpdated))
+				  .setProjection(Projections.distinct(Projections.property("itemHistoryPK.revisionNumber")))
+				  .uniqueResult();
+		return revisionNumber;
+	}
+	
+	private Timestamp getTimestamp(long itemId, LocalDateTime lastUpdated) {
+		List<Timestamp> revisionNumber = (List<Timestamp>) sessionFactory.getCurrentSession().createCriteria(ItemHistory.class)
+				  .add(Restrictions.eq("itemHistoryPK.itemId", itemId))
+				  //.add(Restrictions.eq("updated", lastUpdated))
+				  .setProjection(Projections.distinct(Projections.property("updated")))
+				  .list();
+		for (Timestamp t : revisionNumber){
+			System.out.println("item timestamp: " + lastUpdated);
+			System.out.println("itemHistory timestamp: "+ t);
+		}
+		return revisionNumber.get(0);
 	}
 
 

@@ -1,39 +1,34 @@
 package common.app.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 @MappedSuperclass
+@EntityListeners(LastUpdateListener.class)
 public abstract class AbstractTimestampEntity {
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false)
-    private Date created;
+    private LocalDateTime created = LocalDateTime.now();
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at", nullable = false)
     @Version
-    @Column(name = "updated_at", nullable = false, updatable=false)
-    private Date updated;
+    private LocalDateTime updated;
 
 
-	public Date getCreated() {
+	public LocalDateTime getCreated() {
 		return created;
 	}
 
-	public void setCreated(Date created) {
-		this.created = created;
-	}
-
-	public Date getUpdated() {
+	public LocalDateTime getUpdated() {
 		return updated;
 	}
-
-	public void setUpdated(Date updated) {
-		this.updated = updated;
+	
+	public void setLastModified(LocalDateTime date) {
+		updated = date;
 	}
 }

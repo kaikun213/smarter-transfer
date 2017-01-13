@@ -5,10 +5,11 @@
    		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd"> 		
 
     <!-- JPA/Hibernate setup -->
-    <bean id="jpaSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <bean id="jpaSessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource">
             <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-                <property name="url" value="${jdbc.url}" />
+           	 <!-- SSL settings deactivated (needed for mysql 5.5.45+) when testing on private machine -->
+                <property name="url" value="${jdbc.url}?useSSL=false" />
                 <property name="username" value="${jdbc.username}" />
                 <property name="password" value="${jdbc.password}" />
                 <property name="driverClassName" value="${jdbc.driver}" />
@@ -33,12 +34,12 @@
                 <prop key="hibernate.show_sql">false</prop>
                 <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
                <!-- <prop key="hibernate.hbm2ddl.auto">update</prop>  = allows changes to DB-Schema in queries, just for testing-->
-            </props>
+           </props>
         </property>
     </bean>
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="jpaSessionFactory" />
-    </bean>
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+    	<property name="sessionFactory" ref="jpaSessionFactory"/>
+	</bean>
     <tx:annotation-driven/>
 
 </beans>

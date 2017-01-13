@@ -1,5 +1,6 @@
 package com.smarter_transfer.springrest.registration.item;
 
+import java.util.Date;
 import java.util.List;
 
 import com.smarter_transfer.springrest.registration.item.model.Item;

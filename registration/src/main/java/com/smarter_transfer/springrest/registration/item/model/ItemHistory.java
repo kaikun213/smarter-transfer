@@ -1,15 +1,16 @@
 package com.smarter_transfer.springrest.registration.item.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import common.app.model.AbstractTimestampEntity;
+import javax.persistence.Version;
 
 @Entity
 @Table(name="ITEM_HISTORY")
-public class ItemHistory extends AbstractTimestampEntity {
+public class ItemHistory {
 	
 	@Id
 	private ItemHistoryPK itemHistoryPK;
@@ -20,10 +21,16 @@ public class ItemHistory extends AbstractTimestampEntity {
 	@Column(name="price")
 	private double price;
 	
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime created;
+    @Version
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updated;
+	
 	public ItemHistory(){}
 	
-	public ItemHistory(Item item){
-		this.itemHistoryPK = new ItemHistoryPK(item.getItemPK());
+	public ItemHistory(Item item, long revisionNumber){
+		this.itemHistoryPK = new ItemHistoryPK(item.getMerchant(), item.getItemId(), revisionNumber);
 		this.name = item.getName();
 		this.description = item.getDescription();
 		this.price = item.getPrice();
@@ -55,6 +62,22 @@ public class ItemHistory extends AbstractTimestampEntity {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+	public LocalDateTime getCreated() {
+		return created;
+	}
+
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
+	}
+
+	public LocalDateTime getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(LocalDateTime updated) {
+		this.updated = updated;
+	}
+
 	@Override
 	public String toString() {
 		return "ItemHistory [itemHistoryPK=" + itemHistoryPK.toString() + ", name=" + name + "]";
