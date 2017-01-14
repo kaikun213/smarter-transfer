@@ -22,6 +22,8 @@ import com.smarter_transfer.springrest.registration.merchant.MerchantService;
 import com.smarter_transfer.springrest.registration.merchant.model.Merchant;
 
 import common.app.web.ApiResponse;
+import common.app.web.ApiResponse.Status;
+import common.app.web.ListApiResponse;
 import common.app.web.config.JsonConfiguration;
 
 @RunWith(SpringRunner.class)
@@ -84,6 +86,23 @@ public class ItemResourceIntegrationTest {
 		itemDTO.setPrice(item1.getPrice());
     	ApiResponse response = itemResource.updateItem(item1.getMerchant().getMerchantId(), item1.getItemId(), itemDTO);
     	assertEquals("updatedItem", ((ItemDTO)response.getData()).getName());
+    }
+    
+    @Test
+	public void testDeleteItemSuccess(){
+		ApiResponse response = itemResource.deleteItem(item1.getMerchant().getMerchantId(), item1.getItemId());
+		assertEquals(response.getStatus(), Status.OK);
+		response = itemResource.getItem(item1.getMerchant().getMerchantId(), item1.getItemId());
+		assertEquals(response.getStatus(), Status.ERROR);		
+	}
+    
+    @Test
+    public void testGetItemsSuccess(){
+    	ListApiResponse response = itemResource.getItems(item1.getMerchant().getMerchantId(), 1, 5);
+    	assertEquals(1, response.getData().size());
+    	for (Object o : response.getData()){
+        	assertEquals(item1.getMerchant().getMerchantId(), ((ItemDTO)o).getMerchantId());
+    	}
     }
     
     

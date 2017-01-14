@@ -80,8 +80,17 @@ public class ItemServiceImpl implements ItemService{
 
 	@Override
 	public void deleteItem(long merchantId, long itemId) {
-		// TODO Auto-generated method stub
-		
+		if (merchantId <= 0) {
+			  throw new IllegalArgumentException("The merchantId must be greater than zero");
+		  }
+		else if (itemId <= 0){
+			throw new IllegalArgumentException("The itemId must be greater than zero");
+		}
+		Item item = getItem(merchantId, itemId);
+		sessionFactory.getCurrentSession().delete(item);
+		if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Deleted item: {}", item.toString());
+        }
 	}
 
 	@Override
@@ -104,18 +113,11 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	private long getRevisionNumber(long itemId, LocalDateTime lastUpdated) {
-		long revisionNumber = 0;
-		try {
-			 revisionNumber = (Long) sessionFactory.getCurrentSession().createCriteria(ItemHistory.class)
+		long revisionNumber = (Long) sessionFactory.getCurrentSession().createCriteria(ItemHistory.class)
 				  .add(Restrictions.eq("itemHistoryPK.itemId", itemId))
 				  .add(Restrictions.eq("updated", lastUpdated))
 				  .setProjection(Projections.distinct(Projections.property("itemHistoryPK.revisionNumber")))
 				  .uniqueResult();
-	    }
-	    catch (Exception e){
-	    	System.err.println("Exception getting revisionNumber: " + e.getMessage());
-	    }
-		
 		return revisionNumber;
 	}
 

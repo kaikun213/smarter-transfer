@@ -20,6 +20,7 @@ import com.smarter_transfer.springrest.registration.merchant.web.MerchantDTO;
 import com.smarter_transfer.springrest.registration.merchant.web.MerchantResource;
 
 import common.app.web.ApiResponse;
+import common.app.web.ListApiResponse;
 import common.app.web.ApiResponse.Status;
 import common.app.web.config.JsonConfiguration;
 
@@ -72,6 +73,15 @@ public class MerchantResourceIntegrationTest {
 	}
 	
 	@Test
+    public void testGetMerchantsSuccess(){
+    	ListApiResponse response = merchantResource.getMerchants(1, 5);
+    	assertEquals(2, response.getData().size());
+    	for (Object o : response.getData()){
+        	if (!(o instanceof MerchantDTO)) fail("No Merchants returned");
+    	}
+    }
+	
+	@Test
 	public void testAddMerchantSuccess(){
 		long keshId = merchantResource.countMerchants();
 		Merchant tester3 = new Merchant(keshId+1);
@@ -115,7 +125,7 @@ public class MerchantResourceIntegrationTest {
 	}
 	
 	@Test
-	public void testDeleteMerchant(){
+	public void testDeleteMerchantSuccess(){
 		ApiResponse response = merchantResource.deleteMerchant(tester1.getMerchantId());
 		assertEquals(response.getStatus(), Status.OK);
 		response = merchantResource.getMerchant(tester1.getMerchantId());
