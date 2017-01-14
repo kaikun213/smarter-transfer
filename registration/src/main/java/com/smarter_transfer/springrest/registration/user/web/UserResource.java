@@ -93,7 +93,6 @@ public class UserResource {
 		return userService.count();
 	}
 	
-	
 	private User createUser(UserDTO userDTO){
 		User u = new User();
 		if (userDTO.getUserId() > 0) throw new IllegalArgumentException("UserId will be generated, do not include.");
@@ -104,6 +103,7 @@ public class UserResource {
 		u.setLocation(new Location(userDTO.getLat(),userDTO.getLon()));
 		return u;
 	}
+	
 	private void updateUser(UserDTO userDTO, User user){
 		user.setName(userDTO.getName());
 		user.setKeshId(userDTO.getKeshId());

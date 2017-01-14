@@ -2,6 +2,8 @@ package integrationTests;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDateTime;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.smarter_transfer.springrest.registration.WebApplication;
+import com.smarter_transfer.springrest.registration.merchant.MerchantService;
 import com.smarter_transfer.springrest.registration.merchant.model.Merchant;
 import com.smarter_transfer.springrest.registration.merchant.web.MerchantDTO;
 import com.smarter_transfer.springrest.registration.merchant.web.MerchantResource;
@@ -28,6 +31,9 @@ public class MerchantResourceIntegrationTest {
 		
 	@Autowired
 	MerchantResource merchantResource;
+	/* for internal tests e.g. timestamp update */
+	@Autowired
+	MerchantService merchantService;
 	
 	Merchant tester1;
 	Merchant tester2;
@@ -135,27 +141,18 @@ public class MerchantResourceIntegrationTest {
 	}
 
 	
-	/*
 	@Test
 	public void testTimestampMerchantUpdate(){
-		SQLQuery sqlQuery = sessionFactory.getCurrentSession().createSQLQuery("SELECT updated_at FROM smarterTestDB.Merchant WHERE merchantId="+tester1.getMerchantId());
-		sqlQuery.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-		List list = sqlQuery.list();
-		String test = list.get(0).toString();
-		System.err.println("**************************************************");
-
-		System.out.println("Date: " + test);
-		// before update
-		sessionFactory.getCurrentSession().refresh(tester1);
-		Date before = tester1.getUpdated();
-		// after
+		tester1 = merchantService.getMerchant(tester1.getMerchantId());
+		LocalDateTime before = tester1.getUpdated();
+		
+		tester1.setCompanyName("updatedName");
 		merchantResource.updateMerchant(new MerchantDTO(tester1), tester1.getMerchantId());
-		sessionFactory.getCurrentSession().refresh(tester1);
-		Date after = tester1.getUpdated();
-		if (before == null || after == null) System.out.println("Error");
-		assertTrue(before.before(after));
+		
+		tester1 = merchantService.getMerchant(tester1.getMerchantId());
+		LocalDateTime after = tester1.getUpdated();
+		assertTrue(before.isBefore(after));
 	}
-	*/
 	
 	
 

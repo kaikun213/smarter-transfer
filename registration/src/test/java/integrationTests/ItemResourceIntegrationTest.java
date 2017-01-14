@@ -2,6 +2,7 @@ package integrationTests;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.smarter_transfer.springrest.registration.WebApplication;
+import com.smarter_transfer.springrest.registration.item.ItemService;
 import com.smarter_transfer.springrest.registration.item.model.Item;
 import com.smarter_transfer.springrest.registration.item.web.ItemDTO;
 import com.smarter_transfer.springrest.registration.item.web.ItemResource;
@@ -32,6 +34,10 @@ public class ItemResourceIntegrationTest {
 	ItemResource itemResource;
 	@Autowired
 	MerchantService merchantService;
+	/* for internal tests e.g. timestamp update */
+	@Autowired
+	ItemService itemService;
+	
 
     Merchant merchant;
     Item item1;
@@ -71,11 +77,13 @@ public class ItemResourceIntegrationTest {
     
     @Test
     public void testUpdateItemSuccess(){
-    	item1.setName("updatedItem");
-    	ApiResponse response = itemResource.updateItem(new ItemDTO(item1), item1.getMerchant().getMerchantId());
+    	ItemDTO itemDTO = new ItemDTO();
+		/* Passing modified ItemDTO , with itemId and merchantId excluded! */
+		itemDTO.setName("updatedItem");
+		itemDTO.setDescription(item1.getDescription());
+		itemDTO.setPrice(item1.getPrice());
+    	ApiResponse response = itemResource.updateItem(item1.getMerchant().getMerchantId(), item1.getItemId(), itemDTO);
     	assertEquals("updatedItem", ((ItemDTO)response.getData()).getName());
-    	
-    	item1.setName("testItem");
     }
     
     
@@ -84,5 +92,27 @@ public class ItemResourceIntegrationTest {
     	ApiResponse response = itemResource.getItem(merchant.getMerchantId(), item1.getItemId());
 		if (response.getData() == null) fail();
     }
+    
+    @Test
+    public void testCountSuccess(){
+    	assertEquals(1, itemService.count(merchant.getMerchantId()));
+    }
+    
+    @Test
+	public void testTimestampItemUpdate(){
+		item1 = itemService.getItem(merchant.getMerchantId(), item1.getItemId());
+		LocalDateTime before = item1.getUpdated();
+
+		/* Passing modified ItemDTO , with itemId and merchantId excluded! */
+		ItemDTO itemDTO = new ItemDTO();
+		itemDTO.setName("newName!");
+		itemDTO.setDescription(item1.getDescription());
+		itemDTO.setPrice(item1.getPrice());
+		itemResource.updateItem(item1.getMerchant().getMerchantId(), item1.getItemId(), itemDTO);
+		
+		item1 = itemService.getItem(merchant.getMerchantId(), item1.getItemId());
+		LocalDateTime after = item1.getUpdated();
+		assertTrue(before.isBefore(after));
+	}
     
 }

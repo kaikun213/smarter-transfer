@@ -1,9 +1,9 @@
 package com.smarter_transfer.springrest.registration.item.impl;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -38,9 +38,6 @@ public class ItemServiceImpl implements ItemService{
 		ItemHistory itemHistory = new ItemHistory(item, 0);
 		sessionFactory.getCurrentSession().save(itemHistory);
 		
-		System.out.println("Updated_at creation of itemHistory: " +itemHistory.getUpdated());
-		System.out.println("Updated_at creation of item: " +item.getUpdated());
-		
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("Added new item: {}", item.toString());
             LOGGER.info("Added new itemHistory: {}", itemHistory.toString());
@@ -52,25 +49,33 @@ public class ItemServiceImpl implements ItemService{
 		/* retrieve revision number from last updated version, increment and save new version */
 	    long revisionNumber = getRevisionNumber(item.getItemId(), item.getUpdated());
 		sessionFactory.getCurrentSession().update(item);
+		/* refresh item for new updated_at */
+		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().refresh(item);
 		/* retrieve current created_at and updated_at to be synchronized with itemHistory */
 		ItemHistory itemHistory = new ItemHistory(item, revisionNumber+1);
-		sessionFactory.getCurrentSession().update(itemHistory);
+		sessionFactory.getCurrentSession().save(itemHistory);
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("Updated item: {}", item.toString());
             LOGGER.info("Updated itemHistory: {}", itemHistory.toString());
         }
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Item> getItems(long merchantId, int start, int limit) {
-		// TODO Auto-generated method stub
-		return null;
+		return sessionFactory.getCurrentSession()
+		        .createCriteria(Item.class)
+		        .add(Restrictions.eq("merchant.merchantId", merchantId))
+		        .setFirstResult(start)
+		        .setMaxResults(limit)
+		        .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+		        .list();
 	}
 
 	@Override
 	public long count(long merchantId) {
-		// TODO Auto-generated method stub
-		return 0;
+		return (long) sessionFactory.getCurrentSession().createCriteria(Item.class).add(Restrictions.eq("merchant.merchantId", merchantId)).setProjection(Projections.rowCount()).uniqueResult();
 	}
 
 	@Override
@@ -99,25 +104,19 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	private long getRevisionNumber(long itemId, LocalDateTime lastUpdated) {
-		long revisionNumber = (Long) sessionFactory.getCurrentSession().createCriteria(ItemHistory.class)
+		long revisionNumber = 0;
+		try {
+			 revisionNumber = (Long) sessionFactory.getCurrentSession().createCriteria(ItemHistory.class)
 				  .add(Restrictions.eq("itemHistoryPK.itemId", itemId))
 				  .add(Restrictions.eq("updated", lastUpdated))
 				  .setProjection(Projections.distinct(Projections.property("itemHistoryPK.revisionNumber")))
 				  .uniqueResult();
+	    }
+	    catch (Exception e){
+	    	System.err.println("Exception getting revisionNumber: " + e.getMessage());
+	    }
+		
 		return revisionNumber;
-	}
-	
-	private Timestamp getTimestamp(long itemId, LocalDateTime lastUpdated) {
-		List<Timestamp> revisionNumber = (List<Timestamp>) sessionFactory.getCurrentSession().createCriteria(ItemHistory.class)
-				  .add(Restrictions.eq("itemHistoryPK.itemId", itemId))
-				  //.add(Restrictions.eq("updated", lastUpdated))
-				  .setProjection(Projections.distinct(Projections.property("updated")))
-				  .list();
-		for (Timestamp t : revisionNumber){
-			System.out.println("item timestamp: " + lastUpdated);
-			System.out.println("itemHistory timestamp: "+ t);
-		}
-		return revisionNumber.get(0);
 	}
 
 

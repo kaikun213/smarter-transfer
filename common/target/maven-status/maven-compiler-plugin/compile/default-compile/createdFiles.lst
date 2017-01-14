@@ -6,7 +6,6 @@ common/app/model/Address.class
 common/app/web/ApiResponse$Status.class
 common/app/model/Location.class
 common/app/web/config/JsonConfiguration.class
-common/app/model/LastUpdateListener.class
 common/app/error/DuplicateRecordException.class
 common/app/error/RecordNotFoundException.class
 common/app/web/ApiResponse$ApiError.class

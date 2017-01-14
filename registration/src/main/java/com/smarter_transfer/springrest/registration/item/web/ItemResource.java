@@ -1,5 +1,8 @@
 package com.smarter_transfer.springrest.registration.item.web;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +16,7 @@ import com.smarter_transfer.springrest.registration.item.model.Item;
 import com.smarter_transfer.springrest.registration.merchant.MerchantService;
 
 import common.app.web.ApiResponse;
+import common.app.web.ListApiResponse;
 import common.app.web.ApiResponse.ApiError;
 import common.app.web.ApiResponse.Status;
 
@@ -44,8 +48,8 @@ public class ItemResource {
 	}
 	
 
-	@RequestMapping(value="/{merchantId}", method=RequestMethod.GET, produces = "application/json")
-	public ApiResponse getItem(@PathVariable long merchantId,@RequestParam(value = "itemId", required = true) long itemId){
+	@RequestMapping(value="/{merchantId}/{itemId}", method=RequestMethod.GET, produces = "application/json")
+	public ApiResponse getItem(@PathVariable long merchantId,@PathVariable long itemId){
 		try {
 			Item item = itemService.getItem(merchantId, itemId);
 			return new ApiResponse(Status.OK, new ItemDTO(item), null);
@@ -55,16 +59,42 @@ public class ItemResource {
 		}
 	}
 	
-	@RequestMapping(value = "/{merchantId}", method = RequestMethod.PUT, consumes = "application/json")
-	public ApiResponse updateItem(@RequestBody ItemDTO itemDTO, @PathVariable long merchantId){
+	@RequestMapping(value = "/{merchantId}/{itemId}", method = RequestMethod.PUT, consumes = "application/json")
+	public ApiResponse updateItem(@PathVariable long merchantId,  @PathVariable long itemId, @RequestBody ItemDTO itemDTO){
 		try{
-			Item item = itemService.getItem(merchantId, itemDTO.getItemId());
+			Item item = itemService.getItem(merchantId, itemId);
 			updateItem(itemDTO,item);
 			return new ApiResponse(Status.OK,new ItemDTO(item),null);
 		}
 		catch (Exception e){
             return new ApiResponse(Status.ERROR, null, new ApiError(400, e.getMessage()));
 		}
+	}
+	
+	@RequestMapping(value = "/{merchantId}", method = RequestMethod.DELETE, consumes = "application/json")
+	public ApiResponse deleteItem(@PathVariable long merchantId,@RequestParam(value = "itemId", required = true) long itemId){
+		try{
+			itemService.deleteItem(merchantId, itemId);
+			return new ApiResponse(Status.OK,null,null);
+		}
+		catch (Exception e){
+            return new ApiResponse(Status.ERROR, null, new ApiError(400, e.getMessage()));
+		}
+	}
+	
+	@RequestMapping(value = "/{merchantId}", method=RequestMethod.GET, produces = "application/json")
+	public ListApiResponse getItems(@PathVariable long merchantId,
+										@RequestParam(value = "page", required = false, defaultValue="1") int page,
+										@RequestParam(value = "limit", required = false, defaultValue="10") int limit){
+			List<Object> items = itemService.getItems(merchantId, (page-1)*limit, limit).stream().map(ItemDTO::new).collect(Collectors.toList());
+			// calculate how many pages there are in total with object limit per page
+			// amount devided by limit and possibly +1 if there is a rest
+			long total = (long)((itemService.count(merchantId)/limit));
+			if ((itemService.count(merchantId)%limit) > 0) total++;
+			
+			String nextPage = "none";
+			if (page < total) nextPage = "http://localhost:8080/api/v1/merchants?page="+(page+1)+"&limit="+limit;
+			return new ListApiResponse(Status.OK,items, null, page, nextPage, total);
 	}
 	
 	private Item createItem(ItemDTO itemDTO){
@@ -78,8 +108,8 @@ public class ItemResource {
 	}
 	
 	private void updateItem(ItemDTO itemDTO, Item item){
-		item.setMerchant(merchantService.getMerchant(itemDTO.getMerchantId()));
-		item.setItemId(itemDTO.getItemId());
+		if (itemDTO.getItemId() > 0 ) throw new IllegalArgumentException("ItemId can not get updated, do not include.");
+		else if (itemDTO.getMerchantId() > 0)  throw new IllegalArgumentException("MerchantId can not get updated, do not include.");
 		item.setName(itemDTO.getName());
 		item.setDescription(itemDTO.getDescription());
 		item.setPrice(itemDTO.getPrice());

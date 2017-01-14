@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.smarter_transfer.springrest.registration.WebApplication;
 import com.smarter_transfer.springrest.registration.merchant.model.Theme;
+import com.smarter_transfer.springrest.registration.user.UserService;
 import com.smarter_transfer.springrest.registration.user.model.User;
 import com.smarter_transfer.springrest.registration.user.web.UserDTO;
 import com.smarter_transfer.springrest.registration.user.web.UserResource;
@@ -31,6 +32,9 @@ public class UserResourceIntegrationTest {
 		
 	@Autowired
 	UserResource userResource;
+	/* for internal tests e.g. timestamp update */
+	@Autowired
+	UserService userService;
 	
 	User tester1;
 	User tester2;
@@ -52,7 +56,6 @@ public class UserResourceIntegrationTest {
 	
 	@Test
 	public void testGetUserSuccess(){
-		/* successful case */
 		ApiResponse response = userResource.getUser(tester1.getUserId());
 		assertEquals(response.getStatus(), Status.OK);
 		assertEquals(((UserDTO)response.getData()).getKeshId(), tester1.getKeshId());
@@ -93,7 +96,7 @@ public class UserResourceIntegrationTest {
 		tester1.setName("Tester1");
 		ApiResponse response = userResource.updateUser(new UserDTO(tester1), tester1.getUserId());
 		assertEquals(response.getStatus(), Status.OK);
-		assertEquals(((UserDTO)response.getData()).getName(), tester1.getName());		
+		assertEquals("Tester1",((UserDTO)response.getData()).getName());		
 	}
 	
 	@Test
@@ -137,18 +140,20 @@ public class UserResourceIntegrationTest {
 		if (response.getData() == null) fail();
 	}
 	
-	/*
+	
 	@Test
 	public void testTimestampUserUpdate(){
-		userResource.getUser(tester1.getUserId());
-		// before update
+		/* needs to retrieve tester newly because only userDTO got passed => tester1 object never updated (pass by value) */
+		tester1 = userService.getUser(tester1.getUserId());
 		LocalDateTime before = tester1.getUpdated();
-		// after
+		
+		tester1.setName("updatedName");
 		userResource.updateUser(new UserDTO(tester1), tester1.getUserId());
-		userResource.getUser(tester1.getUserId());
+		
+		tester1 = userService.getUser(tester1.getUserId());
 		LocalDateTime after = tester1.getUpdated();
 		assertTrue(before.isBefore(after));
 	}
-	*/
+	
 
 }
