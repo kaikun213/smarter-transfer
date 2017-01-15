@@ -1,8 +1,10 @@
-package com.smarter_transfer.springrest.registration.pos.model;
+package com.smarter_transfer.springrest.registration.merchant.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,7 +18,12 @@ import common.app.model.Location;
 @Table(name="POS")
 public class PointOfSale {
 	@Id
-	private PointOfSalePK posPK;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="posId", nullable=false)
+	private long posId;
+	@ManyToOne
+    @JoinColumn(name="merchantId", nullable=false)
+	private Merchant merchant;
 	@ManyToOne
     @JoinColumn(name="menuId", nullable=false)
 	private Menu menu;
@@ -25,12 +32,8 @@ public class PointOfSale {
 	@Column(name="isDeleted", nullable = false)
 	private boolean isDeleted;
 	
-	public PointOfSalePK getPosPK() {
-		return posPK;
-	}
-	public void setPosPK(PointOfSalePK posPK) {
-		this.posPK = posPK;
-	}
+	public PointOfSale(){}
+	
 	public Menu getMenu() {
 		return menu;
 	}
@@ -43,17 +46,29 @@ public class PointOfSale {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-	public boolean isDeleted() {
+	public boolean getIsDeleted() {
 		return isDeleted;
 	}
-	public void setDeleted(boolean isDeleted) {
+	public void setIsDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
+	public long getPosId() {
+		return posId;
+	}
+	public void setPosId(long posId) {
+		this.posId = posId;
+	}
+	public Merchant getMerchant() {
+		return merchant;
+	}
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
+	}
+
 	@Override
 	public String toString() {
-		return "PointOfSale [posPK=" + posPK.toString() + "]";
+		return "PointOfSale [posId=" + posId + ", merchant=" + merchant.toString() + ", isDeleted=" + isDeleted + "]";
 	}
-	
 	
 	
 

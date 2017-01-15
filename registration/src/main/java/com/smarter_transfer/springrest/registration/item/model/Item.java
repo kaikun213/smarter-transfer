@@ -81,6 +81,28 @@ public class Item extends AbstractTimestampEntity{
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (itemId ^ (itemId >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Item other = (Item) obj;
+		if (itemId != other.itemId)
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		return "Item [itemId=" + itemId + ", merchant=" + merchant + ", name=" + name + ", description=" + description
 				+ ", price=" + price + ", created=" + this.getCreated() + ", updated=" + this.getUpdated() +"]";

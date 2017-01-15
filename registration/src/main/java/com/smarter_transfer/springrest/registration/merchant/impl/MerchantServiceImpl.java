@@ -72,7 +72,7 @@ public class MerchantServiceImpl implements MerchantService{
 	      merchant.setIsDeleted(true);
 	      sessionFactory.getCurrentSession().update(merchant);
 	      if (LOGGER.isInfoEnabled()) {
-	         LOGGER.info("Deleted merchant: {}", merchant.getCompanyName());
+	         LOGGER.info("Deleted merchant: {}", merchant.toString());
 	      }
 	}
 
