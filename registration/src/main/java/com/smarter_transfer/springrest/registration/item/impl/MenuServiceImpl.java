@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.smarter_transfer.springrest.registration.item.MenuService;
 import com.smarter_transfer.springrest.registration.item.model.Menu;
+import com.smarter_transfer.springrest.registration.merchant.model.PointOfSale;
 
 import common.app.error.RecordNotFoundException;
 
@@ -47,6 +48,7 @@ public class MenuServiceImpl implements MenuService {
         } 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void deleteMenu(long merchantId, long menuId) {
 		if (merchantId <= 0) {
@@ -54,6 +56,14 @@ public class MenuServiceImpl implements MenuService {
 		  }
 		else if (menuId <= 0){
 			throw new IllegalArgumentException("The menuId must be greater than zero");
+		}
+		long referencingPOS = (long) sessionFactory.getCurrentSession().createCriteria(PointOfSale.class).add(Restrictions.eq("menuId", menuId)).setProjection(Projections.rowCount()).uniqueResult();
+		if (referencingPOS > 0) {
+			/* give a list of the posIds which reference this menu */
+			List<Long> posIds = (List<Long>) sessionFactory.getCurrentSession().createCriteria(PointOfSale.class).add(Restrictions.eq("menuId", menuId)).setProjection(Projections.distinct(Projections.property("posId"))).list();
+			StringBuilder ids = new StringBuilder();
+			for (Long l : posIds) ids.append(l + ";");
+			throw new IllegalArgumentException("You can not delete a menu as long as a POS is still referencing it. Id's of referencing POS: " + ids.toString());
 		}
 		Menu menu = getMenu(merchantId, menuId);
 		sessionFactory.getCurrentSession().delete(menu);

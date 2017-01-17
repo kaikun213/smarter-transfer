@@ -50,7 +50,7 @@ public class ItemResourceIntegrationTest {
     	createMerchantPhysically();
     	item1 = new Item(merchant,"testItem", "testDescription", 10.0);
     	
-    	ApiResponse response = itemResource.addItem(new ItemDTO(item1));
+    	ApiResponse response = itemResource.addItem(item1.getMerchant().getMerchantId(), new ItemDTO(item1));
     	item1.setItemId(((ItemDTO)response.getData()).getItemId());
     }
     
@@ -66,7 +66,7 @@ public class ItemResourceIntegrationTest {
     	Item item2 = new Item(merchant, "testItem2", "testDescription2", 20.0);
     	
     	// test
-    	ApiResponse response = itemResource.addItem(new ItemDTO(item2));
+    	ApiResponse response = itemResource.addItem(item1.getMerchant().getMerchantId(), new ItemDTO(item2));
     	item2.setItemId(((ItemDTO)response.getData()).getItemId());
     	assertEquals("testItem2", ((ItemDTO)response.getData()).getName());
     }

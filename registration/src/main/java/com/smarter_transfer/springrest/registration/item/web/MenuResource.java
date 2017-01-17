@@ -50,9 +50,7 @@ public class MenuResource {
 		Menu menu = new Menu();
 		menu.setMerchant(merchantService.getMerchant(menuDTO.getMerchantId()));
 		menu.setName(menuDTO.getName());
-		for (Long l : menuDTO.getItemIds()){
-			menu.getItems().add(itemService.getItem(menuDTO.getMerchantId(), l));
-		}
+		menu.setItems(menuDTO.getItems());
 		return menu;
 	}
 	
@@ -60,9 +58,7 @@ public class MenuResource {
 		if (menuDTO.getMenuId() > 0 ) throw new IllegalArgumentException("MenuId can not get updated, do not include.");
 		else if (menuDTO.getMerchantId() > 0)  throw new IllegalArgumentException("MerchantId can not get updated, do not include.");
 		menu.setName(menuDTO.getName());
-		for (Long l : menuDTO.getItemIds()){
-			menu.getItems().add(itemService.getItem(menuDTO.getMerchantId(), l));
-		}
+		menu.setItems(menuDTO.getItems());
 		menuService.updateMenu(menu);
 	}
 

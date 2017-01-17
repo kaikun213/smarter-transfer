@@ -35,10 +35,10 @@ public class ItemResource {
 		this.itemService = itemService;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, consumes = "application/json")
-	public ApiResponse addItem(@RequestBody ItemDTO itemDTO){
+	@RequestMapping(value="/{merchantId}", method=RequestMethod.POST, consumes = "application/json")
+	public ApiResponse addItem(@PathVariable long merchantId,@RequestBody ItemDTO itemDTO){
 		try{
-			Item newItem = createItem(itemDTO);
+			Item newItem = createItem(merchantId, itemDTO);
 			itemService.addItem(newItem);
 			return new ApiResponse(Status.OK,new ItemDTO(newItem), null);
 		}
@@ -97,10 +97,11 @@ public class ItemResource {
 			return new ListApiResponse(Status.OK,items, null, page, nextPage, total);
 	}
 	
-	private Item createItem(ItemDTO itemDTO){
+	private Item createItem(long merchantId, ItemDTO itemDTO){
 		if (itemDTO.getItemId() > 0) throw new IllegalArgumentException("ItemId will be generated, do not include.");
+		if (itemDTO.getMerchantId() != merchantId) throw new IllegalArgumentException("MerchantIds in RequestBody and URL not matching!");
 		Item item = new Item();
-		item.setMerchant(merchantService.getMerchant(itemDTO.getMerchantId()));
+		item.setMerchant(merchantService.getMerchant(merchantId));
 		item.setName(itemDTO.getName());
 		item.setDescription(itemDTO.getDescription());
 		item.setPrice(itemDTO.getPrice());

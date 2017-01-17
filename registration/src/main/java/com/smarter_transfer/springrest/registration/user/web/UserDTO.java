@@ -2,6 +2,8 @@ package com.smarter_transfer.springrest.registration.user.web;
 
 import com.smarter_transfer.springrest.registration.user.model.User;
 
+import common.app.model.Location;
+
 /**
  * Data Transfer Object (DTO) for {@link User}
  * @author kaikun
@@ -12,8 +14,7 @@ public class UserDTO {
 	private long userId = 0;
 	private long keshId;
 	private String name;
-	private double lon;
-	private double lat;
+	private Location location;
 	private String deviceId;
 	private long themeId;
 	
@@ -24,10 +25,7 @@ public class UserDTO {
 		this.keshId = user.getKeshId();
 		this.name = user.getName();
 		this.deviceId = user.getDeviceId();
-		if (user.getLocation() != null){
-			this.lon = user.getLocation().getLon();
-			this.lat = user.getLocation().getLat();
-		}
+		this.setLocation(user.getLocation());
 		if (user.getTheme() != null){
 			this.themeId = user.getTheme().getThemeId();
 		}
@@ -45,20 +43,20 @@ public class UserDTO {
 		return name;
 	}
 
-	public double getLon() {
-		return lon;
-	}
-	
-	public double getLat() {
-		return lat;
-	}
-
 	public long getThemeId() {
 		return themeId;
 	}
 
 	public String getDeviceId() {
 		return deviceId;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 }

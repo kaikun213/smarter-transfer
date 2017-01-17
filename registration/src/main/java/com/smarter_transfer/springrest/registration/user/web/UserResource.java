@@ -82,6 +82,7 @@ public class UserResource {
 		}
 	}
 	
+	/* For testing purpose only */
 	@RequestMapping(method=RequestMethod.GET, produces = "application/json")
 	public ListApiResponse getUsers(){
 			List<Object> users = userService.getUsers().stream().map(UserDTO::new).collect(Collectors.toList());
@@ -100,7 +101,7 @@ public class UserResource {
 		u.setName(userDTO.getName());
 		u.setDeviceId(userDTO.getDeviceId());
 		u.setTheme(new Theme(userDTO.getThemeId()));
-		u.setLocation(new Location(userDTO.getLat(),userDTO.getLon()));
+		u.setLocation(userDTO.getLocation());
 		return u;
 	}
 	
@@ -109,7 +110,7 @@ public class UserResource {
 		user.setKeshId(userDTO.getKeshId());
 		user.setDeviceId(userDTO.getDeviceId());
 		user.setTheme(new Theme(userDTO.getThemeId()));
-		user.setLocation(new Location(userDTO.getLat(),userDTO.getLon()));
+		user.setLocation(userDTO.getLocation());
 		userService.updateUser(user);
 	}
 }

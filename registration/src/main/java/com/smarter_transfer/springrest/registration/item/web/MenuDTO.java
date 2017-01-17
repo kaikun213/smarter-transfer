@@ -11,7 +11,7 @@ public class MenuDTO {
 	private long menuId;
 	private long merchantId;
 	private String name;
-	private List<Long> itemIds = new ArrayList<Long>();
+	private List<Item> items = new ArrayList<Item>();
 	
 	public MenuDTO(){}
 	
@@ -20,7 +20,7 @@ public class MenuDTO {
 		this.merchantId = menu.getMerchant().getMerchantId();
 		this.name = menu.getName();
 		for(Item i : menu.getItems()){
-			this.itemIds.add(i.getItemId());
+			this.items.add(i);
 		}
 	}
 	
@@ -43,12 +43,12 @@ public class MenuDTO {
 		this.name = name;
 	}
 
-	public List<Long> getItemIds() {
-		return itemIds;
+	public List<Item> getItems() {
+		return items;
 	}
 
-	public void setItemIds(List<Long> itemIds) {
-		this.itemIds = itemIds;
+	public void setItems(List<Item> itemIds) {
+		this.items = itemIds;
 	}
 
 }
