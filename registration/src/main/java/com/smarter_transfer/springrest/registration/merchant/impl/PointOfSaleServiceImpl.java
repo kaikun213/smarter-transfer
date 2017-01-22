@@ -50,23 +50,29 @@ public class PointOfSaleServiceImpl implements PointOfSaleService {
 	}
 
 	@Override
-	public void deletePOS(long posId) {
+	public void deletePOS(long merchantId, long posId) {
+		if (merchantId <= 0) {
+			throw new IllegalArgumentException("The merchantId must be greater than zero");
+		}
 		if (posId <= 0) {
-			  throw new IllegalArgumentException("The posId must be greater than zero");
-		  }
-	      PointOfSale pos = (PointOfSale) sessionFactory.getCurrentSession().get(PointOfSale.class, posId);
-	      if (pos == null || pos.getIsDeleted()) {
-	    	  throw new RecordNotFoundException("No PointOfSale with POS-ID " + posId);
-	      }
-	      pos.setIsDeleted(true);
-	      sessionFactory.getCurrentSession().update(pos);
-	      if (LOGGER.isInfoEnabled()) {
-	         LOGGER.info("Deleted POS: {}", pos.toString());
-	      }
+			throw new IllegalArgumentException("The posId must be greater than zero");
+		}
+		PointOfSale pos = getPOS(merchantId, posId);
+		if (pos == null || pos.getIsDeleted()) {
+			throw new RecordNotFoundException("No PointOfSale with POS-ID " + posId);
+		}
+		pos.setIsDeleted(true);
+		sessionFactory.getCurrentSession().update(pos);
+		if (LOGGER.isInfoEnabled()) {
+			LOGGER.info("Deleted POS: {}", pos.toString());
+		}
 	}
 
 	@Override
-	public PointOfSale getPOS(long posId) {
+	public PointOfSale getPOS(long merchantId, long posId) {
+		if (merchantId <= 0) {
+			  throw new IllegalArgumentException("The merchantId must be greater than zero");
+		  }
 		if (posId <= 0) {
 			throw new IllegalArgumentException("The posId must be greater than zero");
 		}
@@ -74,6 +80,10 @@ public class PointOfSaleServiceImpl implements PointOfSaleService {
 		if (pos == null || pos.getIsDeleted()) {
 			throw new RecordNotFoundException("No PointOfSale with POS-ID " + posId);
 		}
+		if (pos.getMerchant().getMerchantId() != merchantId){
+			  throw new IllegalArgumentException("The merchantId: " + merchantId + " is not the owner of the item.");
+
+	      }
 		return pos;
 	}
 

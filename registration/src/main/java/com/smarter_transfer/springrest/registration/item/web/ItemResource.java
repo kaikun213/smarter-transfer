@@ -93,7 +93,7 @@ public class ItemResource {
 			if ((itemService.count(merchantId)%limit) > 0) total++;
 			
 			String nextPage = "none";
-			if (page < total) nextPage = "http://localhost:8080/api/v1/merchants?page="+(page+1)+"&limit="+limit;
+			if (page < total) nextPage = "http://localhost:8080/api/v1/merchants"+merchantId+"?page="+(page+1)+"&limit="+limit;
 			return new ListApiResponse(Status.OK,items, null, page, nextPage, total);
 	}
 	

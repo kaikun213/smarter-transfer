@@ -37,7 +37,7 @@ public interface PointOfSaleService {
      * @throws common.app.error.RecordNotFoundException if the pos does not exist
      * @throws IllegalArgumentException if the posId is invalid
      */
-	public void deletePOS(long posId);
+	public void deletePOS(long merchantId, long posId);
 	
 	/**
      * Answers the pos with the given identifier.
@@ -49,7 +49,7 @@ public interface PointOfSaleService {
      * @throws common.app.error.RecordNotFoundException if the pos does not exist
      * @throws IllegalArgumentException if the posId is invalid
      */
-	public PointOfSale getPOS(long posId);
+	public PointOfSale getPOS(long merchantId, long posId);
 	/** Answers a list with all POSs in the system
 	 * @param merchantId the id of merchant who owns the POS
 	 * @param start defines the start of the result list
