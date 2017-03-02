@@ -1,0 +1,638 @@
+swagger: 2.0
+info:
+  version: 1.0
+  title: SmartTransfer
+  description: >+
+    This is the development api specification of the SmartTransfer-Application. Press "Show" to expand on sections to see more details.
+
+  license:
+    name: MIT
+    url: http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT
+host: localhost:8080
+basePath: /
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /api/v1/merchants?{page}&{limit}:
+    get:
+      description: GET Merchants
+      operationId: ApiV1MerchantsByPageAndLimit
+      produces:
+      - application/json
+      parameters:
+      - name: page
+        in: path
+        required: true
+        type: string
+        description: ''
+      - name: limit
+        in: path
+        required: true
+        type: string
+        description: default 10
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /api/v1/merchants:
+    post:
+      description: ADD Merchant
+      operationId: ApiV1Merchants
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /api/v1/merchants/{merchantId}:
+    get:
+      description: GET Merchant
+      operationId: ApiV1MerchantsByMerchantId
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: The id of the merchant.
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    put:
+      description: UPDATE Merchant
+      operationId: ApiV1MerchantsByMerchantId1
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: The id of the merchant.
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    delete:
+      description: DELETE Merchant
+      operationId: ApiV1MerchantsByMerchantId2
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: The id of the merchant.
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /api/v1/items/{merchantId}?{page}&{limit}:
+    get:
+      description: GET Items
+      operationId: ApiV1ItemsAPILimitByMerchantIdAndPage
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: The id of the merchant who owns the items.
+      - name: page
+        in: path
+        required: true
+        type: string
+        description: ''
+      - name: limit
+        in: path
+        required: true
+        type: string
+        description: default 10
+      responses:
+        200:
+          description: OK
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /api/v1/items/{merchantId}:
+    post:
+      description: ADD Item
+      operationId: ApiV1ItemsByMerchantId
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: The id of the merchant who owns the items.
+      responses:
+        200:
+          description: OK
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /api/v1/items/{merchantId}/{itemId}:
+    get:
+      description: GET Item
+      operationId: ApiV1ItemsByMerchantIdAndItemId
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: The id of the merchant who owns the items.
+      - name: itemId
+        in: path
+        required: true
+        type: string
+        description: The id of the item
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    put:
+      description: UPDATE Item
+      operationId: ApiV1ItemsByMerchantIdAndItemId1
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: The id of the merchant who owns the items.
+      - name: itemId
+        in: path
+        required: true
+        type: string
+        description: The id of the item
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /api/v1/menus/{merchantId}?{page}&{limit}:
+    get:
+      description: GET Menus
+      operationId: ApiV1MenusAPILimitByMerchantIdAndPage
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: the id of the merchant who owns the menus
+      - name: page
+        in: path
+        required: true
+        type: string
+        description: ''
+      - name: limit
+        in: path
+        required: true
+        type: string
+        description: default 10
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /api/v1/menus/{merchantId}:
+    post:
+      description: ADD Menu
+      operationId: ApiV1MenusByMerchantId
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: the id of the merchant who owns the menus
+      responses:
+        200:
+          description: OK
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /api/v1/menus/{merchantId}/{menuId}:
+    get:
+      description: GET Menu
+      operationId: ApiV1MenusByMerchantIdAndMenuId
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: the id of the merchant who owns the menus
+      - name: menuId
+        in: path
+        required: true
+        type: string
+        description: the id of the menu
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    put:
+      description: UPDATE Menu
+      operationId: ApiV1MenusByMerchantIdAndMenuId1
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: the id of the merchant who owns the menus
+      - name: menuId
+        in: path
+        required: true
+        type: string
+        description: the id of the menu
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    delete:
+      description: DELETE Menu
+      operationId: ApiV1MenusByMerchantIdAndMenuId2
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: the id of the merchant who owns the menus
+      - name: menuId
+        in: path
+        required: true
+        type: string
+        description: the id of the menu
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /api/v1/pos/{merchantId}?{page}&{limit}:
+    get:
+      description: GET POSs
+      operationId: ApiV1PosAPILimitByMerchantIdAndPage
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: the id of the merchant who owns the POS
+      - name: page
+        in: path
+        required: true
+        type: string
+        description: ''
+      - name: limit
+        in: path
+        required: true
+        type: string
+        description: default 10
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /api/v1/pos/{merchantId}:
+    post:
+      description: ADD POS
+      operationId: ApiV1PosByMerchantId
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: the id of the merchant who owns the POS
+      responses:
+        200:
+          description: OK
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /api/v1/pos/{merchantId}/{posId}:
+    get:
+      description: GET POS
+      operationId: ApiV1PosByMerchantIdAndPosId
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: the id of the merchant who owns the POS
+      - name: posId
+        in: path
+        required: true
+        type: string
+        description: the id of the POS
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    put:
+      description: UPDATE POS
+      operationId: ApiV1PosByMerchantIdAndPosId1
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: the id of the merchant who owns the POS
+      - name: posId
+        in: path
+        required: true
+        type: string
+        description: the id of the POS
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    delete:
+      description: DELETE POS
+      operationId: ApiV1PosByMerchantIdAndPosId2
+      produces:
+      - application/json
+      parameters:
+      - name: merchantId
+        in: path
+        required: true
+        type: string
+        description: the id of the merchant who owns the POS
+      - name: posId
+        in: path
+        required: true
+        type: string
+        description: the id of the POS
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /api/v1/users:
+    post:
+      description: ADD User
+      operationId: ApiV1Users
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /api/v1/users/{userId}:
+    get:
+      description: GET User
+      operationId: ApiV1UsersByUserId
+      produces:
+      - application/json
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        type: string
+        description: The id of the user.
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    put:
+      description: UPDATE User
+      operationId: ApiV1UsersByUserId1
+      produces:
+      - application/json
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        type: string
+        description: The id of the user.
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    delete:
+      description: DELETE User
+      operationId: ApiV1UsersByUserId2
+      produces:
+      - application/json
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        type: string
+        description: The id of the user.
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          schema: {}
+      security: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
