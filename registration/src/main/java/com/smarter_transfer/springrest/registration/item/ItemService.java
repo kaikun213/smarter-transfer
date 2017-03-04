@@ -56,6 +56,15 @@ public interface ItemService {
 	 */
 	public List<Item> getItems(long merchantId, int start, int limit);
 	
+	/** Answers a list with all items from the menu of the merchant in the system
+	 * @param merchantId identifier of the merchant who created the items
+	 * @param menuId identifier of the menu which holds the items
+	 * @param start defines the start of the result list
+	 * @param limit defines how many items should be returned
+	 * @return List of all items from the merchant in the system
+	 */
+	public List<Item> getItems(long merchantId, long menuId, int start, int limit);
+	
 	/** Returns the total amount of items from the merchant in the system
 	 * 
 	 * @param merchantId identifier of the merchant who created the items

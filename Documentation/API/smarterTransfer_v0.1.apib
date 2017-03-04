@@ -2,7 +2,7 @@ FORMAT: 1A
 HOST: http://localhost:8080
 
 
-# SmartTransfer
+# SmarterTransfer
 This is the development api specification of the SmartTransfer-Application. Press "Show" to expand on sections to see more details.
 
 ## Merchants [/api/v1/merchants]
@@ -33,7 +33,7 @@ This is the development api specification of the SmartTransfer-Application. Pres
     "total": 1}
     ```
 
-### GET Merchants [GET /api/v1/merchants?{page}&{limit}]
+### GET Merchants [GET /api/v1/merchants?page={page}&limit={limit}]
 
 + Parameters
     + page: `1` (int, optional)
@@ -207,7 +207,7 @@ This is the development api specification of the SmartTransfer-Application. Pres
 + Response 404
 
 
-## Items [/api/v1/items/{merchantId}?{page}&{limit}]
+## Items [/api/v1/items/{merchantId}?page={page}&limit={limit}]
 
 + Parameters
     + merchantId: `1` (long) - The id of the merchant who owns the items.
@@ -273,6 +273,8 @@ This is the development api specification of the SmartTransfer-Application. Pres
   ```
 
 ### GET Item [GET]
+
++ Request (application/json)
 + Response 200
 [Item][]
 
@@ -293,13 +295,11 @@ This is the development api specification of the SmartTransfer-Application. Pres
 
 + Request item (application/json;charset=UTF-8)
 ```json
-{
-  "merchantId":1,
-  "itemId":1,
-  "name":"testItem",
-  "description":"testDescription",
-  "price":20.0
-}
+    {
+    "name":"testItem",
+    "description":"testDescription",
+    "price":20.0
+    }
 ```
 
 + Response 200
@@ -318,9 +318,13 @@ This is the development api specification of the SmartTransfer-Application. Pres
 
 + Response 404
 
-### DELETE Item [DELETE] (application/json)
+### DELETE Item [DELETE /api/v1/items/{merchantId}?itemId={itemId}]
 
-+ Request deleteItem (application/json)
++ Parameters
+    + merchantId: `1` (long) - The id of the merchant who owns the items.
+    + itemId: `1` (int, required)
+
++ Request item (application/json)
 
 + Response 200
 ```json
@@ -352,7 +356,7 @@ This is the development api specification of the SmartTransfer-Application. Pres
     ```json
     {"status": "OK",
     "data": [{
-          "merchanId": 1,
+          "merchantId": 1,
           "menuId": 1,
           "name": "testerInput",
           "items": [{
@@ -368,7 +372,7 @@ This is the development api specification of the SmartTransfer-Application. Pres
     "total": 1}
     ```
 
-### GET Menus [GET /api/v1/menus/{merchantId}?{page}&{limit}]
+### GET Menus [GET /api/v1/menus/{merchantId}?page={page}&limit={limit}]
 
 + Parameters
     + merchantId: `1` (long) - the id of the merchant who owns the menus
@@ -391,6 +395,7 @@ This is the development api specification of the SmartTransfer-Application. Pres
 ```json
 {
     "name": "testMenu",
+    "merchantId":1,
     "items":[{
         "merchantId":1,
         "itemId":1,
@@ -464,14 +469,14 @@ This is the development api specification of the SmartTransfer-Application. Pres
 + Request menu (application/json;charset=UTF-8)
 ```json
 {
-    "name": "testerInput",
+  "name": "testerInput",
   "items": [{
       "merchantId":1,
       "itemId":1,
       "name":"testItem",
       "description":"testDescription",
       "price":20.0
-    },{...},
+    }
   ]
 }
 ```
@@ -492,7 +497,11 @@ This is the development api specification of the SmartTransfer-Application. Pres
 
 + Response 404
 
-### DELETE Menu [DELETE]
+### DELETE Menu [DELETE /api/v1/menus/{merchantId}?menuId={menuId}]
+
++ Parameters
+    + merchantId: `1` (long) - The id of the merchant who owns the items.
+    + menuId: `1` (int, required)
 
 + Request deleteMenu (application/json)
 
@@ -526,7 +535,7 @@ This is the development api specification of the SmartTransfer-Application. Pres
     ```json
     {"status": "OK",
     "data": [{
-          "merchanId": 1,
+          "merchantId": 1,
           "posId": 1,
           "menuId": 1,
           "location":{
@@ -539,7 +548,7 @@ This is the development api specification of the SmartTransfer-Application. Pres
     "total": 1}
     ```
 
-### GET POSs [GET /api/v1/pos/{merchantId}?{page}&{limit}]
+### GET POSs [GET /api/v1/pos/{merchantId}?page={page}&limit={limit}]
 
 + Parameters
     + merchantId: `1` (long) - the id of the merchant who owns the POS
@@ -562,6 +571,7 @@ This is the development api specification of the SmartTransfer-Application. Pres
 ```json
 {
     "menuId": 1,
+    "merchantId":1,
     "location":{
       "lon": 12.21,
       "lat": 32.1
@@ -652,7 +662,11 @@ This is the development api specification of the SmartTransfer-Application. Pres
 
 + Response 404
 
-### DELETE POS [DELETE]
+### DELETE POS [DELETE /api/v1/pos/{merchantId}?posId={posId}]
+
++ Parameters
+    + merchantId: `1` (long) - the id of the merchant who owns the POS
+    + posId: `1` (long, required) - the id of the POS
 
 + Request deletePOS (application/json)
 

@@ -19,9 +19,10 @@ public class MenuDTO {
 		this.menuId = menu.getMenuId();
 		this.merchantId = menu.getMerchant().getMerchantId();
 		this.name = menu.getName();
-		for(Item i : menu.getItems()){
-			this.items.add(i);
-		}
+		// Lazily fetch from DB? => To get Items ItemResource.getItems(merchantId, menuId)
+//		for(Item i : menu.getItems()){
+//			this.items.add(i);
+//		}
 	}
 	
 	public long getMenuId() {

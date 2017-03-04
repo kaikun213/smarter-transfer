@@ -67,6 +67,7 @@ public class ItemResource {
 			return new ApiResponse(Status.OK,new ItemDTO(item),null);
 		}
 		catch (Exception e){
+			e.printStackTrace();
             return new ApiResponse(Status.ERROR, null, new ApiError(400, e.getMessage()));
 		}
 	}
@@ -96,6 +97,19 @@ public class ItemResource {
 			if (page < total) nextPage = "http://localhost:8080/api/v1/merchants"+merchantId+"?page="+(page+1)+"&limit="+limit;
 			return new ListApiResponse(Status.OK,items, null, page, nextPage, total);
 	}
+//  URI is ambiguous without menus!!
+//	@RequestMapping(value = "/{merchantId}/menus/{menuId}", method=RequestMethod.GET, produces = "application/json")
+//	public ListApiResponse getItems(@PathVariable long merchantId, @PathVariable long menuId,
+//										@RequestParam(value = "page", required = false, defaultValue="1") int page,
+//										@RequestParam(value = "limit", required = false, defaultValue="10") int limit){
+//			List<Object> items = itemService.getItems(merchantId,menuId, (page-1)*limit, limit).stream().map(ItemDTO::new).collect(Collectors.toList());
+//			long total = (long)((itemService.count(merchantId)/limit));
+//			if ((itemService.count(merchantId)%limit) > 0) total++;
+//			
+//			String nextPage = "none";
+//			if (page < total) nextPage = "http://localhost:8080/api/v1/merchants"+merchantId+"?page="+(page+1)+"&limit="+limit;
+//			return new ListApiResponse(Status.OK,items, null, page, nextPage, total);
+//	}
 	
 	private Item createItem(long merchantId, ItemDTO itemDTO){
 		if (itemDTO.getItemId() > 0) throw new IllegalArgumentException("ItemId will be generated, do not include.");

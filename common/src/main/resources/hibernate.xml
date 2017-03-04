@@ -31,7 +31,7 @@
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
-                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.show_sql">false</prop>	<!-- Debug mode = true -->
                 <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>                
                <!-- <prop key="hibernate.hbm2ddl.auto">update</prop>  = allows changes to DB-Schema in queries, just for testing-->
            </props>

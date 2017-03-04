@@ -121,5 +121,20 @@ public class ItemServiceImpl implements ItemService{
 		return revisionNumber;
 	}
 
+	@Override
+	public List<Item> getItems(long merchantId, long menuId, int start, int limit) {
+		/*return sessionFactory.getCurrentSession()
+		        .createCriteria(Item.class)
+		        .createCriteria("menu_item", "MENU")
+		        .add(Restrictions.eq("merchant.merchantId", merchantId))
+		        .add(Restrictions.eq("menu.menuId", value))
+		        .setFirstResult(start)
+		        .setMaxResults(limit)
+		        .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+		        .list();
+		        */
+		return null;
+	}
+
 
 }
