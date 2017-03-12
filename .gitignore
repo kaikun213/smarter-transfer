@@ -1,12 +1,9 @@
 
 # Directories #
-/build/
-/bin/
-target/
-
-# private previous project parts (example) #
-src/backup/
-src/jh223gj_assign1/
+all/target/
+common/target/
+register/target/
+transaction/target/
 
 # OS Files #
 .DS_Store
@@ -16,11 +13,12 @@ src/jh223gj_assign1/
 
 ######################
 # Eclipse
+# Sub modules eclipse #
 ######################
 
 *.pydevproject
-.project
-.metadata
+*.project
+*.metadata
 bin/**
 tmp/**
 tmp/**/*
@@ -29,10 +27,10 @@ tmp/**/*
 *.swp
 *~.nib
 local.properties
-.classpath
-.settings/
-.loadpath
-/src/main/resources/rebel.xml
+*.classpath
+*.settings/
+*.loadpath
+
 # External tool builders
 .externalToolBuilders/
 
