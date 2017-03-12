@@ -11,7 +11,7 @@
   <properties>
   	  <java-version>1.8</java-version>
 	  <org.springframework-version>4.3.5.RELEASE</org.springframework-version>
-	  <org.springframework.boot-version>1.4.3.RELEASE</org.springframework.boot-version>
+	  <org.springframework.boot-version>1.5.2.RELEASE</org.springframework.boot-version>
 	  <org.junit-version>4.12</org.junit-version>
 	  <org.mockito-version>1.9.5</org.mockito-version>
   </properties>

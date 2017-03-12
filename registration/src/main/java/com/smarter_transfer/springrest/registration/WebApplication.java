@@ -15,6 +15,6 @@ public class WebApplication {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(new Object[]{WebApplication.class, "registration.xml",JsonConfiguration.class}, args);
-    }
+	}
 
 }

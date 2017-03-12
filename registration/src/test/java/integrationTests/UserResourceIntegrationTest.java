@@ -41,15 +41,15 @@ public class UserResourceIntegrationTest {
 	
 	@Before
 	public void setup(){
-		long id = userResource.countUsers();
-		tester1 = new User(id+1);
+		String id = Long.toString(userResource.countUsers());
 		tester1.setTheme(new Theme(1));
-		tester2 = new User(id+2);
+		tester1.setKeshId(id+"@Tester1");
 		tester2.setTheme(new Theme(1));
+		tester2.setKeshId(id+"@Tester2");
 
-		ApiResponse response = userResource.addUser(new UserDTO(tester1));
+		ApiResponse response = userResource.addUser(new UserDTO(tester1), id+"@Tester1", "EncPass@Tester1");
 		tester1.setUserId(((UserDTO)response.getData()).getUserId());
-		response = userResource.addUser(new UserDTO(tester2));
+		response = userResource.addUser(new UserDTO(tester2), id+"@Tester2", "EncPass@Tester2");
 		tester2.setUserId(((UserDTO)response.getData()).getUserId());
 	}
 	
@@ -58,7 +58,7 @@ public class UserResourceIntegrationTest {
 	public void testGetUserSuccess(){
 		ApiResponse response = userResource.getUser(tester1.getUserId());
 		assertEquals(response.getStatus(), Status.OK);
-		assertEquals(((UserDTO)response.getData()).getKeshId(), tester1.getKeshId());
+		assertEquals(((UserDTO)response.getData()).getThemeId(), tester1.getTheme().getThemeId());
 	}
 	
 	@Test
@@ -75,19 +75,19 @@ public class UserResourceIntegrationTest {
 	
 	@Test
 	public void testAddUserSuccess(){
-		long keshId = userResource.countUsers();
-		User tester3 = new User(keshId +1);
+		String id = Long.toString(userResource.countUsers());
+		User tester3 = new User();
 		tester3.setTheme(new Theme(1));
-		ApiResponse response = userResource.addUser(new UserDTO(tester3));
+		ApiResponse response = userResource.addUser(new UserDTO(tester3), id+"@Tester3", "EncPass@Tester3");
 		tester3.setUserId(((UserDTO)response.getData()).getUserId());
 		
 		assertEquals(response.getStatus(), Status.OK);
-		assertEquals(((UserDTO)response.getData()).getKeshId(), tester3.getKeshId());
+		assertEquals(((UserDTO)response.getData()).getThemeId(), tester3.getTheme().getThemeId());
 	}
 	
 	@Test
 	public void testAddUserDuplicateKeshId(){
-		ApiResponse response = userResource.addUser(new UserDTO(tester1));
+		ApiResponse response = userResource.addUser(new UserDTO(tester1), tester1.getKeshId(), "EncPass@Tester1");
 		assertEquals(response.getStatus(), Status.ERROR);
 	}
 	
@@ -101,7 +101,7 @@ public class UserResourceIntegrationTest {
 	
 	@Test
 	public void testUpdateUserDuplicateKeshId(){
-		long keshId1 = tester1.getKeshId();
+		String keshId1 = tester1.getKeshId();
 		tester1.setKeshId(tester2.getKeshId());
 		ApiResponse response = userResource.updateUser(new UserDTO(tester1), tester1.getUserId());
 		assertEquals(response.getStatus(), Status.ERROR);

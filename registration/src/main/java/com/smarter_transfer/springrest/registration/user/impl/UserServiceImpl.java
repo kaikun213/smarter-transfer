@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService{
     	return (long) sessionFactory.getCurrentSession().createCriteria(User.class).setProjection(Projections.rowCount()).uniqueResult();
     }
 	
-    public void checkUniqueKeshId(long userId, long keshId) throws DuplicateRecordException{
+    public void checkUniqueKeshId(long userId, String keshId) throws DuplicateRecordException{
     	/* Test if user with equal keshId already exists */
 		@SuppressWarnings("unchecked")
 		List<Long> eqKeshId =  sessionFactory.getCurrentSession()

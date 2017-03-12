@@ -12,7 +12,6 @@ import common.app.model.Location;
 public class UserDTO {
 	
 	private long userId = 0;
-	private long keshId;
 	private String name;
 	private Location location;
 	private String deviceId;
@@ -22,7 +21,6 @@ public class UserDTO {
 	
 	public UserDTO(User user){
 		this.userId = user.getUserId();
-		this.keshId = user.getKeshId();
 		this.name = user.getName();
 		this.deviceId = user.getDeviceId();
 		this.setLocation(user.getLocation());
@@ -33,10 +31,6 @@ public class UserDTO {
 	
 	public long getUserId(){
 		return userId;
-	}
-	
-	public long getKeshId() {
-		return keshId;
 	}
 
 	public String getName() {

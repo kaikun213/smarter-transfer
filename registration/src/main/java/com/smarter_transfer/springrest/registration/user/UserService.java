@@ -68,6 +68,6 @@ public interface UserService {
 	 * @param keshId KeshId of the user to insert/update
 	 * @throws DuplicateRecordException if there is already a duplicate keshId which does not belong to the same userId
 	 */
-    public void checkUniqueKeshId(long userId, long keshId) throws DuplicateRecordException;
+    public void checkUniqueKeshId(long userId, String keshId) throws DuplicateRecordException;
 
 }
