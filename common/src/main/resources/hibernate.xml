@@ -4,17 +4,17 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
    		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd"> 		
 
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+   	 <!-- SSL settings deactivated (needed for mysql 5.5.45+) when testing on private machine -->
+        <property name="url" value="${jdbc.url}?useSSL=false" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <property name="driverClassName" value="${jdbc.driver}" />
+    </bean>
+    
     <!-- JPA/Hibernate setup -->
     <bean id="jpaSessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource">
-            <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-           	 <!-- SSL settings deactivated (needed for mysql 5.5.45+) when testing on private machine -->
-                <property name="url" value="${jdbc.url}?useSSL=false" />
-                <property name="username" value="${jdbc.username}" />
-                <property name="password" value="${jdbc.password}" />
-                <property name="driverClassName" value="${jdbc.driver}" />
-            </bean>
-        </property>
+        <property name="dataSource" ref="dataSource" />
         <!--<property name="annotatedPackages">-->
             <!--<list>-->
                 <!--<value>com.packtpub.springrest.model</value>-->
@@ -37,6 +37,7 @@
            </props>
         </property>
     </bean>
+    
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
     	<property name="sessionFactory" ref="jpaSessionFactory"/>
 	</bean>
