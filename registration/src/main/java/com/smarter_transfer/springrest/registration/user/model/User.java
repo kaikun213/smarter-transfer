@@ -22,8 +22,10 @@ public class User extends AbstractTimestampEntity{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="userId", unique=true, nullable=false)
 	private long userId;
-	@Column(name="keshId", nullable=false, unique=true)
-	private long keshId;
+	@Column(name="keshId", length=200, nullable=false, unique=true)
+	private String keshId;
+	@Column(name="password", length=45, nullable=false)
+	private String password;
 	@Column(name="name", length=45, nullable=false)
 	private String name;
 	@OneToOne
@@ -39,18 +41,24 @@ public class User extends AbstractTimestampEntity{
 	public User(){
 	}
 	
-	public User(long keshId){
+	public User(String keshId){
 		this.keshId = keshId;
 	}
 	
 	public long getUserId(){
 		return userId;
 	}
-	public long getKeshId() {
+	public String getKeshId() {
 		return keshId;
 	}
-	public void setKeshId(long keshId) {
+	public void setKeshId(String keshId) {
 		this.keshId = keshId;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getName() {
 		return name;

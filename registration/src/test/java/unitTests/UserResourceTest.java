@@ -42,7 +42,7 @@ public class UserResourceTest {
 	/* private help methods */
 	public static User getUserDully(){
 		User user = new User();
-    	user.setKeshId(1);
+    	user.setKeshId("encKeshId");
 		user.setName("tester");
 		user.setDeviceId("testDeviceID");
 		user.setLocation(1, 1);
@@ -82,10 +82,10 @@ public class UserResourceTest {
 	@Test
 	public void testAddUserSuccess() throws Exception{
 		// mock
-		doNothing().when(userService).checkUniqueKeshId(anyLong(), anyLong());
+		doNothing().when(userService).checkUniqueKeshId(anyLong(), any());
 		doNothing().when(userService).addUser(any(User.class));
 		//test
-		ApiResponse response = userResource.addUser(getUserDTODully());
+		ApiResponse response = userResource.addUser(getUserDTODully(), "dullyKeshId", "dullyPW");
 		// verify
 		verify(userService, times(1)).addUser(any(User.class));
 		assertEquals(response.getStatus(), Status.OK);
@@ -95,10 +95,10 @@ public class UserResourceTest {
 	@Test
 	public void testAddUserException(){
 		// mock
-		doThrow(new DuplicateRecordException("")).when(userService).checkUniqueKeshId(anyLong(),anyLong());
+		doThrow(new DuplicateRecordException("")).when(userService).checkUniqueKeshId(anyLong(),any());
 		doNothing().when(userService).addUser(any(User.class));
 		// test
-		ApiResponse response = userResource.addUser(getUserDTODully());
+		ApiResponse response = userResource.addUser(getUserDTODully(), "dullyKeshId", "dullyPW");
 		// verify
 		verify(userService, times(0)).addUser(any(User.class));
 		assertEquals(response.getStatus(), Status.ERROR);

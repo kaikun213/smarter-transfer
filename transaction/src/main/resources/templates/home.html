@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Spring Security Example</title>
+    </head>
+    <body>
+        <h1>Welcome!</h1>
+        
+        <!-- currentUser variable not used! -->
+        
+        <div th:if="${currentuser} == null">
+        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+		</div>
+		
+		<div th:if="${currentuser} == null">
+    	<p>Click <a th:href="@{/login}">here</a> to login.</p>
+    	</div>
+		<p>Click <a th:href="@{/auth}">here</a> to get KeshID.</p>
+        
+    </body>
+</html>
