@@ -11,6 +11,8 @@
    <properties>
   	  <java-version>1.8</java-version>
 	  <org.springframework-version>4.3.5.RELEASE</org.springframework-version>
+	  <org.springsecurity-version>4.2.2.RELEASE</org.springsecurity-version>
+	  <org.springframework.boot-version>1.5.2.RELEASE</org.springframework.boot-version>
 	  <junit-version>4.12</junit-version>
   </properties>
   
@@ -20,11 +22,28 @@
             <artifactId>rest-backend-spring-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <!-- Security Dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>${org.springframework.boot-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>${org.springframework.boot-version}</version>
+        </dependency>
         <!-- Test Dependencies -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${org.springframework-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <version>${org.springsecurity-version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
