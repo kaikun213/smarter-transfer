@@ -1,1 +1,1 @@
-web: java -jar transaction/target/rest-backend-spring-transaction-0.0.1-SNAPSHOT-classes.jar
+web: mvn -f ./transaction/ spring-boot:run
