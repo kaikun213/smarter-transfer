@@ -318,7 +318,7 @@ This is the development api specification of the SmartTransfer-Application. Pres
 
 + Response 404
 
-### DELETE Item [DELETE  /api/v1/items/{merchantId}?itemId={itemId}]
+### DELETE Item [DELETE /api/v1/items/{merchantId}?itemId={itemId}]
 
 + Parameters
     + merchantId: `1` (long) - The id of the merchant who owns the items.
@@ -698,7 +698,6 @@ This is the development api specification of the SmartTransfer-Application. Pres
     {"status": "OK",
     "data": [{
            "userId": 1,
-           "keshId": 1,
            "name": "testerInput",
            "location":{
               "lon": 12.21,
@@ -712,12 +711,15 @@ This is the development api specification of the SmartTransfer-Application. Pres
     "total": 1}
     ```
 
-### ADD User [POST]
+### ADD User [POST /api1/v1/users?keshId={keshId}&password={password}]
+
++ Parameters
+    + keshId: `encryptedKeshId` (string) - The generated encrypted token for resource access
+    + password: `encryptedPassword` (string) - The encrypted password of the user
 
 + Request user (application/json;charset=UTF-8)
 ```json
 {
-  "keshId": 1,
   "name": "testerInput",
   "location":{
     "lon": 12.21,
@@ -758,7 +760,6 @@ This is the development api specification of the SmartTransfer-Application. Pres
 "status": "OK",
 "data": {
     "userId": 1,
-    "keshId": 1,
     "name": "testerInput",
   "location":{
     "lon": 12.21,
@@ -796,7 +797,6 @@ This is the development api specification of the SmartTransfer-Application. Pres
 + Request user (application/json;charset=UTF-8)
 ```json
 {
-    "keshId": 1,
     "name": "testerInput",
   "location":{
     "lon": 12.21,
