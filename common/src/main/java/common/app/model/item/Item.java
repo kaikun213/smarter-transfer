@@ -1,4 +1,4 @@
-package com.smarter_transfer.springrest.registration.item.model;
+package common.app.model.item;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -10,9 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.smarter_transfer.springrest.registration.merchant.model.Merchant;
-
 import common.app.model.AbstractTimestampEntity;
+import common.app.model.merchant.Merchant;
 
 @Entity
 @Table(name="ITEM")

@@ -1,6 +1,6 @@
 package com.smarter_transfer.springrest.registration.merchant;
 
-import com.smarter_transfer.springrest.registration.merchant.model.Theme;
+import common.app.model.merchant.Theme;
 
 /**
  * This Service provides the necessary functionality to manage themes

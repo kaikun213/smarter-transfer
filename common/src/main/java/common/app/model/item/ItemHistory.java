@@ -1,4 +1,4 @@
-package com.smarter_transfer.springrest.registration.item.model;
+package common.app.model.item;
 
 import java.time.LocalDateTime;
 

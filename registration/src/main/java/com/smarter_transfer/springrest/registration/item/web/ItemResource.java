@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smarter_transfer.springrest.registration.item.ItemService;
-import com.smarter_transfer.springrest.registration.item.model.Item;
 import com.smarter_transfer.springrest.registration.merchant.MerchantService;
 
+import common.app.model.item.Item;
 import common.app.web.ApiResponse;
 import common.app.web.ListApiResponse;
 import common.app.web.ApiResponse.ApiError;

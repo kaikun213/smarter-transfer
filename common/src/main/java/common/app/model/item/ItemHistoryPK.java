@@ -1,4 +1,4 @@
-package com.smarter_transfer.springrest.registration.item.model;
+package common.app.model.item;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.smarter_transfer.springrest.registration.merchant.model.Merchant;
+import common.app.model.merchant.Merchant;
 
 @SuppressWarnings("serial")
 @Embeddable

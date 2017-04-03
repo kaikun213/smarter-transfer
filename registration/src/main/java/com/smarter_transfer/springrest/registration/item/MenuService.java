@@ -2,7 +2,7 @@ package com.smarter_transfer.springrest.registration.item;
 
 import java.util.List;
 
-import com.smarter_transfer.springrest.registration.item.model.Menu;
+import common.app.model.item.Menu;
 
 /**
  * This Service provides the necessary functionality to manage menus

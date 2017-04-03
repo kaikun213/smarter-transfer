@@ -15,12 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.smarter_transfer.springrest.registration.WebApplication;
 import com.smarter_transfer.springrest.registration.item.ItemService;
-import com.smarter_transfer.springrest.registration.item.model.Item;
 import com.smarter_transfer.springrest.registration.item.web.ItemDTO;
 import com.smarter_transfer.springrest.registration.item.web.ItemResource;
 import com.smarter_transfer.springrest.registration.merchant.MerchantService;
-import com.smarter_transfer.springrest.registration.merchant.model.Merchant;
 
+import common.app.model.item.Item;
+import common.app.model.merchant.Merchant;
 import common.app.web.ApiResponse;
 import common.app.web.ApiResponse.Status;
 import common.app.web.ListApiResponse;

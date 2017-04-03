@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.smarter_transfer.springrest.registration.item.MenuService;
-import com.smarter_transfer.springrest.registration.item.model.Menu;
-import com.smarter_transfer.springrest.registration.merchant.model.PointOfSale;
 
 import common.app.error.RecordNotFoundException;
+import common.app.model.item.Menu;
+import common.app.model.merchant.PointOfSale;
 
 /**
  * {@link MenuService} implementation.

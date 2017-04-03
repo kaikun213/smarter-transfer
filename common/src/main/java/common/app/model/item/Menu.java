@@ -1,4 +1,4 @@
-package com.smarter_transfer.springrest.registration.item.model;
+package common.app.model.item;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.smarter_transfer.springrest.registration.merchant.model.Merchant;
+import common.app.model.merchant.Merchant;
 
 @Entity
 @Table(name="MENU")
@@ -111,13 +111,13 @@ public class Menu {
         public ItemList()
         {
             super();
-            list = new ArrayList<>();
+            list = new ArrayList<Item>();
         }
 
         public ItemList(Collection<? extends Item> c)
         {
             super();
-            list = new ArrayList<>(c.size());
+            list = new ArrayList<Item>(c.size());
             addAll(c);
         }
 

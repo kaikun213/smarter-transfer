@@ -1,8 +1,7 @@
 package com.smarter_transfer.springrest.registration.merchant.web;
 
-import com.smarter_transfer.springrest.registration.merchant.model.PointOfSale;
-
 import common.app.model.Location;
+import common.app.model.merchant.PointOfSale;
 
 public class PointOfSaleDTO {
 	

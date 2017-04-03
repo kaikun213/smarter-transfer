@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.smarter_transfer.springrest.registration.merchant.ThemeService;
-import com.smarter_transfer.springrest.registration.merchant.model.Theme;
 
 import common.app.error.RecordNotFoundException;
+import common.app.model.merchant.Theme;
 /**
  * {@link ThemeService} implementation.
  * @author kaikun

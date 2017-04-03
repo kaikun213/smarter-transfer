@@ -1,4 +1,4 @@
-package com.smarter_transfer.springrest.registration.merchant.model;
+package common.app.model.merchant;
 
 import java.util.ArrayList;
 import java.util.List;

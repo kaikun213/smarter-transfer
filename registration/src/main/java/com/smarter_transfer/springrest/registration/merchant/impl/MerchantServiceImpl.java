@@ -14,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.smarter_transfer.springrest.registration.merchant.MerchantService;
 import com.smarter_transfer.springrest.registration.merchant.impl.MerchantServiceImpl;
-import com.smarter_transfer.springrest.registration.merchant.model.Merchant;
 
 import common.app.error.DuplicateRecordException;
 import common.app.error.RecordNotFoundException;
+import common.app.model.merchant.Merchant;
 
 /**
  * {@link MerchantService} implementation.

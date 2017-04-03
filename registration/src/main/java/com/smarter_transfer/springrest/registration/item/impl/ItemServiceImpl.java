@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.smarter_transfer.springrest.registration.item.ItemService;
-import com.smarter_transfer.springrest.registration.item.model.Item;
-import com.smarter_transfer.springrest.registration.item.model.ItemHistory;
 
 import common.app.error.RecordNotFoundException;
+import common.app.model.item.Item;
+import common.app.model.item.ItemHistory;
 /**
  * {@link ItemService} implementation.
  * @author kaikun

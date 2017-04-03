@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.smarter_transfer.springrest.registration.user.UserService;
-import com.smarter_transfer.springrest.registration.user.model.User;
 
 import common.app.error.DuplicateRecordException;
 import common.app.error.RecordNotFoundException;
+import common.app.model.user.User;
 /**
  * {@link UserService} implementation.
  * @author kaikun

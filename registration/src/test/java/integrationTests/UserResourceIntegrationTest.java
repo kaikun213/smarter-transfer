@@ -14,12 +14,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.smarter_transfer.springrest.registration.WebApplication;
-import com.smarter_transfer.springrest.registration.merchant.model.Theme;
 import com.smarter_transfer.springrest.registration.user.UserService;
-import com.smarter_transfer.springrest.registration.user.model.User;
 import com.smarter_transfer.springrest.registration.user.web.UserDTO;
 import com.smarter_transfer.springrest.registration.user.web.UserResource;
 
+import common.app.model.merchant.Theme;
+import common.app.model.user.User;
 import common.app.web.ApiResponse;
 import common.app.web.ApiResponse.Status;
 import common.app.web.config.JsonConfiguration;

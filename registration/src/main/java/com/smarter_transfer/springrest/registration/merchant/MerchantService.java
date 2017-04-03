@@ -2,9 +2,8 @@ package com.smarter_transfer.springrest.registration.merchant;
 
 import java.util.List;
 
-import com.smarter_transfer.springrest.registration.merchant.model.Merchant;
-
 import common.app.error.DuplicateRecordException;
+import common.app.model.merchant.Merchant;
 
 /**
  * This Service provides the necessary functionality to manage merchants

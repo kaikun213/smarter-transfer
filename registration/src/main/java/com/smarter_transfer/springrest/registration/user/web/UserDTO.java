@@ -1,8 +1,7 @@
 package com.smarter_transfer.springrest.registration.user.web;
 
-import com.smarter_transfer.springrest.registration.user.model.User;
-
 import common.app.model.Location;
+import common.app.model.user.User;
 
 /**
  * Data Transfer Object (DTO) for {@link User}

@@ -1,4 +1,4 @@
-package com.smarter_transfer.springrest.registration.merchant.model;
+package common.app.model.merchant;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -10,9 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.smarter_transfer.springrest.registration.item.model.Menu;
-
 import common.app.model.Location;
+import common.app.model.item.Menu;
 
 @Entity
 @Table(name="POS")

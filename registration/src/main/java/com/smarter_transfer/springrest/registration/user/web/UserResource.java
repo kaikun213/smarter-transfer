@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.smarter_transfer.springrest.registration.merchant.model.Theme;
 import com.smarter_transfer.springrest.registration.user.UserService;
-import com.smarter_transfer.springrest.registration.user.model.User;
 
+import common.app.model.merchant.Theme;
+import common.app.model.user.User;
 import common.app.web.ApiResponse;
 import common.app.web.ListApiResponse;
 import common.app.web.ApiResponse.ApiError;

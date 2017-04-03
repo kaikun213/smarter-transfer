@@ -1,4 +1,4 @@
-package com.smarter_transfer.springrest.registration.merchant.model;
+package common.app.model.merchant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

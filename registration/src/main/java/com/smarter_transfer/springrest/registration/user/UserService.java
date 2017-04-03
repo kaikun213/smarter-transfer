@@ -2,9 +2,8 @@ package com.smarter_transfer.springrest.registration.user;
 
 import java.util.List;
 
-import com.smarter_transfer.springrest.registration.user.model.User;
-
 import common.app.error.DuplicateRecordException;
+import common.app.model.user.User;
 
 /**
  * This Service provides the necessary functionality to manage users

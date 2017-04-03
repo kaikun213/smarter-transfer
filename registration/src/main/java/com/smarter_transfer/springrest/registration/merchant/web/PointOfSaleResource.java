@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.smarter_transfer.springrest.registration.item.MenuService;
 import com.smarter_transfer.springrest.registration.merchant.MerchantService;
 import com.smarter_transfer.springrest.registration.merchant.PointOfSaleService;
-import com.smarter_transfer.springrest.registration.merchant.model.PointOfSale;
 
+import common.app.model.merchant.PointOfSale;
 import common.app.web.ApiResponse;
 import common.app.web.ListApiResponse;
 import common.app.web.ApiResponse.ApiError;
