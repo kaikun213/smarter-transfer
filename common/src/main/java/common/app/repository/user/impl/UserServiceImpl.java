@@ -1,4 +1,4 @@
-package com.smarter_transfer.springrest.registration.user.impl;
+package common.app.repository.user.impl;
 
 import java.util.List;
 
@@ -12,11 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.smarter_transfer.springrest.registration.user.UserService;
-
 import common.app.error.DuplicateRecordException;
 import common.app.error.RecordNotFoundException;
 import common.app.model.user.User;
+import common.app.repository.user.UserService;
 /**
  * {@link UserService} implementation.
  * @author kaikun
@@ -84,7 +83,7 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	public long count(){
-    	return (long) sessionFactory.getCurrentSession().createCriteria(User.class).setProjection(Projections.rowCount()).uniqueResult();
+    	return (Long) sessionFactory.getCurrentSession().createCriteria(User.class).setProjection(Projections.rowCount()).uniqueResult();
     }
 	
     public void checkUniqueKeshId(long userId, String keshId) throws DuplicateRecordException{

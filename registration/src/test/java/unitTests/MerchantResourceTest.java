@@ -7,7 +7,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.smarter_transfer.springrest.registration.merchant.MerchantService;
 import com.smarter_transfer.springrest.registration.merchant.web.MerchantDTO;
 import com.smarter_transfer.springrest.registration.merchant.web.MerchantResource;
 
@@ -17,6 +16,7 @@ import common.app.model.Address;
 import common.app.model.merchant.ContactPerson;
 import common.app.model.merchant.Merchant;
 import common.app.model.merchant.Theme;
+import common.app.repository.merchant.MerchantService;
 import common.app.web.ApiResponse;
 import common.app.web.ApiResponse.Status;
 import common.app.web.ListApiResponse;

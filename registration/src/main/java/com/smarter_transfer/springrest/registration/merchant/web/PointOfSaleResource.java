@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.smarter_transfer.springrest.registration.item.MenuService;
-import com.smarter_transfer.springrest.registration.merchant.MerchantService;
-import com.smarter_transfer.springrest.registration.merchant.PointOfSaleService;
-
 import common.app.model.merchant.PointOfSale;
+import common.app.repository.item.MenuService;
+import common.app.repository.merchant.MerchantService;
+import common.app.repository.merchant.PointOfSaleService;
 import common.app.web.ApiResponse;
 import common.app.web.ListApiResponse;
 import common.app.web.ApiResponse.ApiError;

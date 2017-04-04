@@ -1,4 +1,4 @@
-package com.smarter_transfer.springrest.registration.merchant;
+package common.app.repository.merchant;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.smarter_transfer.springrest.registration.item.impl;
+package common.app.repository.item.impl;
 
 import java.util.List;
 
@@ -12,11 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.smarter_transfer.springrest.registration.item.MenuService;
-
 import common.app.error.RecordNotFoundException;
 import common.app.model.item.Menu;
 import common.app.model.merchant.PointOfSale;
+import common.app.repository.item.MenuService;
 
 /**
  * {@link MenuService} implementation.
@@ -57,7 +56,7 @@ public class MenuServiceImpl implements MenuService {
 		else if (menuId <= 0){
 			throw new IllegalArgumentException("The menuId must be greater than zero");
 		}
-		long referencingPOS = (long) sessionFactory.getCurrentSession().createCriteria(PointOfSale.class).add(Restrictions.eq("menuId", menuId)).setProjection(Projections.rowCount()).uniqueResult();
+		long referencingPOS = (Long) sessionFactory.getCurrentSession().createCriteria(PointOfSale.class).add(Restrictions.eq("menuId", menuId)).setProjection(Projections.rowCount()).uniqueResult();
 		if (referencingPOS > 0) {
 			/* give a list of the posIds which reference this menu */
 			List<Long> posIds = (List<Long>) sessionFactory.getCurrentSession().createCriteria(PointOfSale.class).add(Restrictions.eq("menuId", menuId)).setProjection(Projections.distinct(Projections.property("posId"))).list();
@@ -104,7 +103,7 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public long count(long merchantId) {
-		return (long) sessionFactory.getCurrentSession().createCriteria(Menu.class).add(Restrictions.eq("merchant.merchantId", merchantId)).setProjection(Projections.rowCount()).uniqueResult();
+		return (Long) sessionFactory.getCurrentSession().createCriteria(Menu.class).add(Restrictions.eq("merchant.merchantId", merchantId)).setProjection(Projections.rowCount()).uniqueResult();
 	}
 
 }

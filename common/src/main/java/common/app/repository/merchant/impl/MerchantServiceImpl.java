@@ -1,4 +1,4 @@
-package com.smarter_transfer.springrest.registration.merchant.impl;
+package common.app.repository.merchant.impl;
 
 import java.util.List;
 
@@ -12,12 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.smarter_transfer.springrest.registration.merchant.MerchantService;
-import com.smarter_transfer.springrest.registration.merchant.impl.MerchantServiceImpl;
-
 import common.app.error.DuplicateRecordException;
 import common.app.error.RecordNotFoundException;
 import common.app.model.merchant.Merchant;
+import common.app.repository.merchant.MerchantService;
+import common.app.repository.merchant.impl.MerchantServiceImpl;
 
 /**
  * {@link MerchantService} implementation.
@@ -88,7 +87,7 @@ public class MerchantServiceImpl implements MerchantService{
 	}
     
     public long count(){
-    	return (long) sessionFactory.getCurrentSession().createCriteria(Merchant.class).setProjection(Projections.rowCount()).uniqueResult();
+    	return (Long) sessionFactory.getCurrentSession().createCriteria(Merchant.class).setProjection(Projections.rowCount()).uniqueResult();
     }
     
     public void checkUniqueKeshId(long merchantId, long keshId) throws DuplicateRecordException{

@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.smarter_transfer.springrest.registration.merchant.MerchantService;
-
 import common.app.model.Address;
 import common.app.model.merchant.ContactPerson;
 import common.app.model.merchant.Merchant;
 import common.app.model.merchant.Theme;
+import common.app.repository.merchant.MerchantService;
 import common.app.web.ApiResponse;
 import common.app.web.ApiResponse.ApiError;
 import common.app.web.ListApiResponse;

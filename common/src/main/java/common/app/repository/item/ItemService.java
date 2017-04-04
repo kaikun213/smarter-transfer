@@ -1,4 +1,4 @@
-package com.smarter_transfer.springrest.registration.item;
+package common.app.repository.item;
 
 import java.util.List;
 

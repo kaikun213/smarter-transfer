@@ -1,4 +1,4 @@
-package com.smarter_transfer.springrest.registration.merchant.impl;
+package common.app.repository.merchant.impl;
 
 import java.util.List;
 
@@ -12,10 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.smarter_transfer.springrest.registration.merchant.PointOfSaleService;
-
 import common.app.error.RecordNotFoundException;
 import common.app.model.merchant.PointOfSale;
+import common.app.repository.merchant.PointOfSaleService;
 
 
 /**
@@ -101,7 +100,7 @@ public class PointOfSaleServiceImpl implements PointOfSaleService {
 
 	@Override
 	public long count(long merchantId) {
-    	return (long) sessionFactory.getCurrentSession().createCriteria(PointOfSale.class).add(Restrictions.eq("merchant.merchantId", merchantId)).setProjection(Projections.rowCount()).uniqueResult();
+    	return (Long) sessionFactory.getCurrentSession().createCriteria(PointOfSale.class).add(Restrictions.eq("merchant.merchantId", merchantId)).setProjection(Projections.rowCount()).uniqueResult();
 	}
 
 }

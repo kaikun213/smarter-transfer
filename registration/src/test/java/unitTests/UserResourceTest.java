@@ -7,7 +7,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.smarter_transfer.springrest.registration.user.UserService;
 import com.smarter_transfer.springrest.registration.user.web.UserDTO;
 import com.smarter_transfer.springrest.registration.user.web.UserResource;
 
@@ -15,6 +14,7 @@ import common.app.error.DuplicateRecordException;
 import common.app.error.RecordNotFoundException;
 import common.app.model.merchant.Theme;
 import common.app.model.user.User;
+import common.app.repository.user.UserService;
 import common.app.web.ApiResponse;
 import common.app.web.ApiResponse.Status;
 import common.app.web.ListApiResponse;

@@ -1,4 +1,4 @@
-package com.smarter_transfer.springrest.registration.item.impl;
+package common.app.repository.item.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,11 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.smarter_transfer.springrest.registration.item.ItemService;
-
 import common.app.error.RecordNotFoundException;
 import common.app.model.item.Item;
 import common.app.model.item.ItemHistory;
+import common.app.repository.item.ItemService;
 /**
  * {@link ItemService} implementation.
  * @author kaikun
@@ -75,7 +74,7 @@ public class ItemServiceImpl implements ItemService{
 
 	@Override
 	public long count(long merchantId) {
-		return (long) sessionFactory.getCurrentSession().createCriteria(Item.class).add(Restrictions.eq("merchant.merchantId", merchantId)).setProjection(Projections.rowCount()).uniqueResult();
+		return (Long) sessionFactory.getCurrentSession().createCriteria(Item.class).add(Restrictions.eq("merchant.merchantId", merchantId)).setProjection(Projections.rowCount()).uniqueResult();
 	}
 
 	@Override

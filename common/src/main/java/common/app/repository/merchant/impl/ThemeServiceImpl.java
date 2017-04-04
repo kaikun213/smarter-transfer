@@ -1,4 +1,4 @@
-package com.smarter_transfer.springrest.registration.merchant.impl;
+package common.app.repository.merchant.impl;
 
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.smarter_transfer.springrest.registration.merchant.ThemeService;
-
 import common.app.error.RecordNotFoundException;
 import common.app.model.merchant.Theme;
+import common.app.repository.merchant.ThemeService;
 /**
  * {@link ThemeService} implementation.
  * @author kaikun
