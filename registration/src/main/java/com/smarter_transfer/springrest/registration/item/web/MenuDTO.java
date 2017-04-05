@@ -3,8 +3,8 @@ package com.smarter_transfer.springrest.registration.item.web;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.smarter_transfer.springrest.registration.item.model.Item;
-import com.smarter_transfer.springrest.registration.item.model.Menu;
+import common.app.model.item.Item;
+import common.app.model.item.Menu;
 
 public class MenuDTO {
 	

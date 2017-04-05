@@ -3,8 +3,8 @@ package com.smarter_transfer.springrest.registration.merchant.web;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.smarter_transfer.springrest.registration.merchant.model.Merchant;
-import com.smarter_transfer.springrest.registration.merchant.model.Theme;
+import common.app.model.merchant.Merchant;
+import common.app.model.merchant.Theme;
 
 public class MerchantDTO {
 	
