@@ -21,7 +21,7 @@ import common.app.model.user.User;
 
 public class Order extends AbstractTimestampEntity{
 	
-	enum Status {
+	public enum Status {
 		ACTIVE,			// transaction is initialized and active in the system
 		PENDING,		// transaction is processed and partially complete
 		COMPLETE,		// successfully completed all transaction steps
