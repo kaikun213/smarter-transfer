@@ -1,5 +1,6 @@
 
 # Directories #
+.env
 all/target/
 common/target/
 register/target/
