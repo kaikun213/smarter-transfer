@@ -14,11 +14,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.smarter_transfer.springrest.registration.WebApplication;
-import com.smarter_transfer.springrest.registration.merchant.MerchantService;
-import com.smarter_transfer.springrest.registration.merchant.model.Merchant;
 import com.smarter_transfer.springrest.registration.merchant.web.MerchantDTO;
 import com.smarter_transfer.springrest.registration.merchant.web.MerchantResource;
 
+import common.app.model.merchant.Merchant;
+import common.app.repository.merchant.MerchantService;
 import common.app.web.ApiResponse;
 import common.app.web.ListApiResponse;
 import common.app.web.ApiResponse.Status;

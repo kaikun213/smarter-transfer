@@ -1,6 +1,6 @@
 package com.smarter_transfer.springrest.registration.item.web;
 
-import com.smarter_transfer.springrest.registration.item.model.Item;
+import common.app.model.item.Item;
 
 public class ItemDTO {
 	
