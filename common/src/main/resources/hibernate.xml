@@ -6,7 +6,7 @@
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
    	 <!-- SSL settings deactivated (needed for mysql 5.5.45+) when testing on private machine -->
-        <property name="url" value="jdbc:${DATABASE_URL}?useSSL=false" />
+        <property name="url" value="jdbc:${DATABASE_URL}?useSSL=true" />
         <property name="username" value="${DATABASE_USERNAME}" />
         <property name="password" value="${DATABASE_PASSWORD}" />
         <property name="driverClassName" value="${DATABASE_DRIVER}" />

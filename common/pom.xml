@@ -43,11 +43,11 @@
             <artifactId>spring-web</artifactId>
             <version>${org.springframework-version}</version>
         </dependency>
-       	<dependency>
+       	<!-- <dependency>
 	        <groupId>org.springframework.data</groupId>
 	        <artifactId>spring-data-jpa</artifactId>
 	        <version>${org.springframework.data-version}</version>
-	    </dependency>
+	    </dependency> -->
         <!-- Database (ORM,Hibernate,Mysql) -->
         <dependency>
             <groupId>org.hibernate</groupId>
